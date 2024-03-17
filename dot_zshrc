@@ -6,9 +6,8 @@ alias vim="nvim"
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 export LD_LIBRARY_PATH=/usr/local/lib
 
-#QT_STYLE_OVERRIDE=kvantum
-#export PATH="/etc/xdg_plattform_override:$PATH"
 export PATH="$PATH:$HOME/.cargo/bin"
+export EDITOR="/bin/nvim"
 
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
