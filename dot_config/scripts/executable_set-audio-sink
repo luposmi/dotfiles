@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ $# -eq 1 ]]; then
+    description=$1
+else
+    description=\"$(pactl --format=json list sinks| jq '.[] | .description ' -r| rofi -dmenu -i -p "Select audio sink" )\"
+fi
+
+if [[ -z $description ]]; then
+    exit 0
+fi
+
+name=$(pactl --format=json list sinks| jq ".[] | select(.description == $description) | .name " -r)
+
+pactl set-default-sink $name
+
+pactl --format="json" list sink-inputs |jq ".[] | .index" | while read -r index; do
+    pactl move-sink-input $index $name
+done

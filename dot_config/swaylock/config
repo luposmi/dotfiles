@@ -1,0 +1,9 @@
+image=~/.config/assets/wallpaper.jpg
+
+indicator-radius=60
+inside-color=E2CDB440
+inside-clear-color=E2CDB4
+
+ring-color=B7803190
+line-color=3F301690
+key-hl-color=70672BC0
