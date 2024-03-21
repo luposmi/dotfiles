@@ -10,13 +10,13 @@ return {
     config = function()
         local configs = require("nvim-treesitter.configs")
         configs.setup({
-            ensure_installed = { "asm", "awk", "bash", "bibtex", "c", "clojure", "cmake", "commonlisp", "cpp", "css",
-                "csv", "dart", "diff", "devicetree", "diff", "disassembly", "dockerfile",  "gdscript",
+            ensure_installed = {   "bash",  "c", "clojure", "cmake", "commonlisp", "cpp", "css",
+                "csv", "dart", "diff", "dockerfile",  "gdscript",
                 "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore", "go",
                  "html",  "java", "javascript", "json", "latex",  "llvm", "lua",
-                 "nix", "ocaml", "printf",
-                "python", "regex", "rust",  "sql",
-                 "typescript",    "xml", "yaml", "zig"
+                 "nix", "ocaml",
+                "python",  "rust",  "sql",
+                 "typescript", "xml", "yaml", "zig"
             },
             sync_install = false,
             highlight = { enable = true },
