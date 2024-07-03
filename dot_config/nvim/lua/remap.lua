@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "open the explorer" })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "moves the current line up" })
@@ -10,14 +11,11 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "half page down, cursor in midd
 vim.keymap.set("n", "n", "nzzzv", { desc = "repeat Search stay in middle" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "repeat Search opposide stay in middle" })
 
+-- copy, paste and delete with or without (system) clipboard
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "paste without replacing buffer" })
-
--- next greatest remap ever : asbjornHaland
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "copy to clippboard" })
-vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "copy to clippboard" })
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete to void" })
-
-vim.keymap.set("i", "<C-c>", "<Esc>")
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without copying to buffer" })
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "copy to system clippboard" })
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "copy to system clippboard" })
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "format from lsp"})
@@ -30,9 +28,6 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "replace current item"})
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "set current file to executable"})
-
-vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
-vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
