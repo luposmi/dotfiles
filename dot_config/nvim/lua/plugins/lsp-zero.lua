@@ -29,8 +29,8 @@ return {
             vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename()           end,          opts)
             vim.keymap.set("i", "<C-h>",       function() vim.lsp.buf.signature_help()   end,          opts)
             vim.keymap.set("n", "<leader>vd",  function() vim.diagnostic.open_float()    end, { unpack(opts), desc= "open diagnostics"})
-            vim.keymap.set("n", "[d",          function() vim.diagnostic.goto_next()     end, { unpack(opts), desc= "go to previous diagnostic"})
-            vim.keymap.set("n", "]d",          function() vim.diagnostic.goto_prev()     end, { unpack(opts), desc= "go to next diagnostic"})
+            vim.keymap.set("n", "[d",          function() vim.diagnostic.goto_prev()     end, { unpack(opts), desc= "go to previous diagnostic"})
+            vim.keymap.set("n", "]d",          function() vim.diagnostic.goto_next()     end, { unpack(opts), desc= "go to next diagnostic"})
         end)
 
         -- to learn how to use mason.nvim with lsp-zero
