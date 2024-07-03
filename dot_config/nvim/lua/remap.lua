@@ -18,7 +18,6 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "copy to system clip
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "copy to system clippboard" })
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "format from lsp"})
 
 -- quickfix
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
