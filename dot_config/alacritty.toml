@@ -2,7 +2,9 @@ shell = "/bin/zsh"
 [window]
 opacity = 0.85
 [font]
-normal = { family = "Iosevka Term medium"}
+#normal = { family = "Iosevka Term medium"}
+normal = { family = "IosevkaTerm NF Medium" }
+# arch pkg: ttf-iosevkaterm-nerd
 size = 11.5
 
 [cursor]
