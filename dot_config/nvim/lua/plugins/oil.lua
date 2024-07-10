@@ -185,7 +185,26 @@ return {
             keymaps_help = {
                 border = "rounded",
             },
-            vim.keymap.set("n", "<leader>pv", vim.cmd.Oil, { desc = "open the explorer" })
+
         })
+        vim.keymap.set("n", "<leader>pv", vim.cmd.Oil, { desc = "open the explorer" });
+        -- Function to get list of directories
+        local conf = require("telescope.config").values
+        local function getDirectories()
+            local directories = {}
+            local p = io.popen("find . -type d ! -path '*/.*'")
+            for dir in p:lines() do
+                table.insert(directories, dir)
+            end
+            p:close()
+            require("telescope.pickers").new({}, {
+                prompt_title = "Oil",
+                finder = require("telescope.finders").new_table({
+                    results = directories,
+                }),
+                sorter = conf.generic_sorter({}),
+            }):find()
+        end
+        vim.keymap.set("n", "<leader>po", getDirectories);
     end
 }
