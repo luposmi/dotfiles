@@ -188,20 +188,33 @@ return {
 
         })
         vim.keymap.set("n", "<leader>pv", vim.cmd.Oil, { desc = "open the explorer" });
-        -- Function to get list of directories
+
+        -- Telescope integration
+        previewer_config = require("telescope.previewers").new_buffer_previewer({
+            define_preview = function(self, entry, status)
+                local lines = {}
+                local ls_command = io.popen("ls " .. entry.value)
+                for line in ls_command:lines() do 
+                   table.insert(lines,line)
+                end
+                ls_command:close()
+                vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, true, lines)
+            end
+        })
         local conf = require("telescope.config").values
         local function getDirectories()
             local directories = {}
-            local p = io.popen("find . -type d ! -path '*/.*'")
-            for dir in p:lines() do
+            local find_command = io.popen("find . -type d ! -path '*/.*'")
+            for dir in find_command:lines() do
                 table.insert(directories, dir)
             end
-            p:close()
+            find_command:close()
             require("telescope.pickers").new({}, {
                 prompt_title = "Oil",
                 finder = require("telescope.finders").new_table({
                     results = directories,
                 }),
+                previewer = previewer_config,
                 sorter = conf.generic_sorter({}),
             }):find()
         end
