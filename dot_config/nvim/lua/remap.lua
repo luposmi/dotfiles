@@ -1,7 +1,5 @@
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "open the explorer" })
-
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "moves the current line up" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "moves the current line down" })
 
