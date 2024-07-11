@@ -193,7 +193,7 @@ return {
         previewer_config = require("telescope.previewers").new_buffer_previewer({
             define_preview = function(self, entry, status)
                 local lines = {}
-                local ls_command = io.popen("ls " .. entry.value)
+                local ls_command = io.popen("ls \"" .. entry.value .. "\"")
                 for line in ls_command:lines() do 
                    table.insert(lines,line)
                 end
