@@ -9,7 +9,10 @@ alias la="ls -a"
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 export LD_LIBRARY_PATH=/usr/local/lib
 
-export PATH="$PATH:$HOME/.cargo/bin"
+typeset -U path PATH
+path=(~/.cargo/bin ~/.config/scripts $path)
+export PATH
+
 export EDITOR="/bin/nvim"
 
 # create a zkbd compatible hash;
