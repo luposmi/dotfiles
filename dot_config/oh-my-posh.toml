@@ -7,11 +7,11 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
 [[blocks]]
 type = 'prompt'
 alignment = 'left'
-newline = true
+newline = false
 
 [[blocks.segments]]
 background = "transparent"
-foreground = "magenta"
+foreground = "lightMagenta"
 type = "path"
 style = "plain"
 [blocks.segments.properties]
@@ -34,14 +34,14 @@ fetch_status = true
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
-  newline = true
+  newline = false
 
   [[blocks.segments]]
     type = 'text'
     style = 'plain'
     foreground_templates = [
       "{{if gt .Code 0}}red{{end}}",
-      "{{if eq .Code 0}}magenta{{end}}",
+      "{{if eq .Code 0}}lightMagenta{{end}}",
     ]
     background = 'transparent'
     template = '❯'
@@ -49,12 +49,12 @@ fetch_status = true
 [transient_prompt]
   foreground_templates = [
     "{{if gt .Code 0}}red{{end}}",
-    "{{if eq .Code 0}}magenta{{end}}",
+    "{{if eq .Code 0}}lightMagenta{{end}}",
   ]
   background = 'transparent'
   template = '❯ '
 
 [secondary_prompt]
-  foreground = 'magenta'
+  foreground = 'lightMagenta'
   background = 'transparent'
   template = '❯❯ '
