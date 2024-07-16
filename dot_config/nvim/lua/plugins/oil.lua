@@ -63,6 +63,7 @@ return {
             -- Set to `false` to remove a keymap
             -- See :help oil-actions for a list of all available actions
             keymaps = {
+                ["ga"] = { "ddGp''", desc = "move the file/ directory under cursor to the bottom"},
                 ["g?"] = "actions.show_help",
                 ["<CR>"] = "actions.select",
                 ["<C-s>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
