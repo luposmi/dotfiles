@@ -20,6 +20,9 @@ export EDITOR="/bin/nvim"
 # to add other keys to this hash, see: man 5 terminfo
 typeset -g -A key
 
+# ignore XON and XOFF Protocol (Ctrl S / Q)
+stty -ixon
+
 key[Home]="${terminfo[khome]}"
 key[End]="${terminfo[kend]}"
 key[Insert]="${terminfo[kich1]}"
