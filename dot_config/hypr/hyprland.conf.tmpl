@@ -6,16 +6,22 @@ windowrule=stayfocused,^(Rofi)$
 windowrule=center,^(Rofi)$
 windowrule=noanim,^(Rofi)$
 
-exec-once = mako & hyprpaper #& waybar
-# See https://wiki.hyprland.org/Configuring/Monitors/
-#monitor=,preferred,auto,auto
+exec-once = mako & hyprpaper & waybar
+
+{{- if eq .chezmoi.hostname "mainpc" }}
+# display config main pc
+monitor=DP-1,2560x1440@180,0x0,1
+monitor=DP-2,2560x1440@180,0x0,1
+monitor=DP-3,2560x1440@180,0x0,1
+monitor=HDMI-A-1,1920x1080@60,2560x0,1
+{{- end }}
+{{- if eq .chezmoi.hostname "mainlaptop" }}
+# display config main laptop
 monitor=eDP-1,1920x1080@60,0x0,1
-#monitor=DP-1,2560x1440@180,0x0,1
-#monitor=DP-2,2560x1440@180,0x0,1
-#monitor=DP-3,2560x1440@180,0x0,1
-#monitor=HDMI-A-1,1920x1080@60,2560x0,1
 monitor=DP-4,1920x1080@60,1920x0,1
 monitor=DP-3,1920x1080@60,3840x0,1
+{{- end }}
+
 env = XCURSOR_SIZE,24
 
 input {
