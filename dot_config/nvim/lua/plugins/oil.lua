@@ -188,9 +188,6 @@ return {
             },
 
         })
-        vim.keymap.set("n", "<leader>pv", vim.cmd.Oil, { desc = "open the explorer" });
-
-        -- Telescope integration
         previewer_config = require("telescope.previewers").new_buffer_previewer({
             define_preview = function(self, entry, status)
                 local lines = {}
@@ -220,5 +217,7 @@ return {
             }):find()
         end
         vim.keymap.set("n", "<leader>po", getDirectories);
+
+        vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end
 }
