@@ -7,10 +7,8 @@ return {
     build = function()
         require("nvim-treesitter.install").update({ with_sync = true })()
     end,
-    config = function()
-        local configs = require("nvim-treesitter.configs")
-        configs.setup({
-            ensure_installed = {   "bash",  "c", "clojure", "cmake", "commonlisp", "cpp", "css",
+    opts = {
+            ensure_installed = {   "bash", "c", "clojure", "cmake", "commonlisp", "cpp", "css",
                 "csv", "dart", "diff", "dockerfile",  "gdscript",
                 "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore", "go",
                 "haskell", "html",  "java", "javascript", "json", "latex",  "llvm", "lua",
@@ -31,8 +29,7 @@ return {
                     node_decremental = "<bs>",
                 }
             }
-        })
-    end
+        }
 }, {
     "nvim-treesitter/nvim-treesitter-context",
     config = function()
