@@ -29,3 +29,5 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc =
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end, { desc = "apply current file, aka so"})
+
+vim.keymap.set("n", "<leader>m", ":marks<CR>",{ desc = "show marks"})
