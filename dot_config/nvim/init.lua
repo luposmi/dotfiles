@@ -15,3 +15,11 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 
 vim.treesitter.language.register("bash", "zsh")
+
+
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = "*.core",
+    callback = function()
+        vim.bo.filetype = "yaml"
+    end,
+})
