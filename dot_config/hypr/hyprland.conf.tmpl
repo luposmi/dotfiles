@@ -184,5 +184,7 @@ bindle=,XF86AudioRaiseVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindle=,XF86AudioLowerVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ -5%  
 
 # Brightness controll
-bindle=,XF86MonBrightnessUp,exec,brightnessctl set 4%+
-bindle=,XF86MonBrightnessDown,exec,brightnessctl set 4%-
+bindle=,XF86MonBrightnessUp,exec,brightnessctl set 10%+
+bindle=,XF86MonBrightnessDown,exec,brightnessctl set 10%-
+bindle=SHIFT,XF86MonBrightnessUp,exec,brightnessctl set 1%+
+bindle=SHIFT,XF86MonBrightnessDown,exec,brightnessctl set 1%-
