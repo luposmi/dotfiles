@@ -106,8 +106,6 @@ misc {
 $mainMod = SUPER
 bindle=,XF86MonBrightnessUp,exec,brightnessctl -d amdgpu_bl0 set +5%
 bindle=,XF86MonBrightnessDown,exec,brightnessctl -d amdgpu_bl0 set 5%-
-bindle=,XF86AudioRaiseVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ +5%  
-bindle=,XF86AudioLowerVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ -5%  
 
 bind = $mainMod, A, exec, ~/.config/scripts/set-audio-sink
 # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
@@ -183,3 +181,6 @@ bindm = $mainMod, mouse:273, resizewindow
 bindl = , XF86AudioPlay, exec, playerctl play-pause
 bindl = , XF86AudioPrev, exec, playerctl previous
 bindl = , XF86AudioNext, exec, playerctl next
+bindl = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindle=,XF86AudioRaiseVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ +5%  
+bindle=,XF86AudioLowerVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ -5%  
