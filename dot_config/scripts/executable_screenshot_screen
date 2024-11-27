@@ -1,0 +1,10 @@
+# !/bin/bash
+source ~/.config/user-dirs.dirs
+if [ -z "$XDG_PICTURES_DIR" ]; then
+    echo "xdg does not exist"
+    XDG_PICTURES_DIR="$HOME/Pictures"
+fi
+DATE=$(date +%Y-%m-%d)
+SCREENSHOT_NUMBER=$(find "$XDG_PICTURES_DIR/Screenshots/" -name "${DATE}_*" | wc -l)
+grim -g "$(slurp -o)" "$XDG_PICTURES_DIR/Screenshots/${DATE}_${SCREENSHOT_NUMBER}.png"
+#notify-send  "screenshot was saved at $XDG_PICTURES_DIR/Screenshots/${DATE}_${SCREENSHOT_NUMBER}.png" 
