@@ -6,5 +6,6 @@ if [ -z "$XDG_PICTURES_DIR" ]; then
 fi
 DATE=$(date +%Y-%m-%d)
 SCREENSHOT_NUMBER=$(find "$XDG_PICTURES_DIR/Screenshots/" -name "${DATE}_*" | wc -l)
-grim "$XDG_PICTURES_DIR/Screenshots/${DATE}_${SCREENSHOT_NUMBER}.png"
-#notify-send  "screenshot was saved at $XDG_PICTURES_DIR/Screenshots/${DATE}_${SCREENSHOT_NUMBER}.png" 
+NAME="$XDG_PICTURES_DIR/Screenshots/${DATE}_${SCREENSHOT_NUMBER}.png"
+grim $NAME
+cat $NAME | wl-copy --type image/png
