@@ -1,5 +1,6 @@
 [terminal]
 shell = "/bin/zsh"
+osc52 = "CopyPaste"
 [env]
     TERM="xterm-256color"
 [window]
