@@ -39,3 +39,6 @@ vim.opt.smartcase = true      -- but make it case sensitive if an uppercase is e
 
 -- Column
 vim.opt.colorcolumn = "120"   -- the column to signal you should wrap
+
+-- timeout
+vim.opt.timeoutlen = 1000 -- we increase the timeout length as vim fugitive otherwise doesnt work
