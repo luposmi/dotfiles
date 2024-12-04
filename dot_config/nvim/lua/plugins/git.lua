@@ -8,7 +8,7 @@ return {{
     "lewis6991/gitsigns.nvim",
     opts = {
         signs = {
-            add          = { text = '┃' },
+            add          = { text = '+' },
             change       = { text = '┃' },
             delete       = { text = '_' },
             topdelete    = { text = '‾' },
@@ -16,7 +16,7 @@ return {{
             untracked    = { text = '┆' },
           },
           signs_staged = {
-            add          = { text = '┃' },
+            add          = { text = '+' },
             change       = { text = '┃' },
             delete       = { text = '_' },
             topdelete    = { text = '‾' },
