@@ -77,7 +77,10 @@ local rose_pine = {
 }
 
 local kangawa = {
-    "rebelot/kanagawa.nvim"
+    "rebelot/kanagawa.nvim",
+    config = function()
+        vim.cmd("colorscheme kanagawa")
+    end
 }
 
 return kangawa
