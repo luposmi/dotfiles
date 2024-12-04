@@ -114,7 +114,7 @@ local neogit = {
     },
     config = function()
         local neogit_rq = require('neogit')
-        vim.keymap.set("n", "<leader>gc", function() neogit_rq.open({ "commit" }) end, { desc = "open fugitive" })
+        vim.keymap.set("n", "<leader>gc", function() neogit_rq.open({ "commit" }) end, { desc = "create commit" })
    end
 }
 
