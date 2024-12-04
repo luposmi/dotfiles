@@ -261,7 +261,7 @@ theme "kanagawa"
 // The name of the default layout to load on startup
 // Default: "default"
 // 
-default_layout "compact"
+//default_layout "compact"
  
 // The folder in which Zellij will look for layouts
 // (Requires restart)
@@ -280,7 +280,7 @@ default_layout "compact"
 //   - true (default)
 //   - false
 // 
-// mouse_mode false
+mouse_mode false
  
 // Toggle having pane frames around the panes
 // Options:
@@ -334,7 +334,7 @@ pane_frames false
 //   - system (default)
 //   - primary
 // 
-// copy_clipboard "primary"
+copy_clipboard "system"
  
 // Enable automatic copying (and clearing) of selection when releasing mouse
 // Default: true
@@ -350,13 +350,13 @@ pane_frames false
 // otherwise this will error if such a session exists.
 // Default: <RANDOM>
 // 
-// session_name "My singleton session"
+session_name "default"
  
 // When `session_name` is provided, attaches to that session
 // if it is already running or creates it otherwise.
 // Default: false
 // 
-// attach_to_session true
+attach_to_session true
  
 // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
 // Options:
