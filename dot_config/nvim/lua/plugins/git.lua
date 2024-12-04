@@ -1,10 +1,11 @@
 -- a git wrapper
-return {{
+local fugitive = {
     "tpope/vim-fugitive",
     config = function()
         vim.keymap.set("n","<leader>gs",vim.cmd.Git, { desc = "open fugitive"})
     end
-},{
+}
+local gitsigns = {
     "lewis6991/gitsigns.nvim",
     opts = {
         signs = {
@@ -100,4 +101,6 @@ return {{
             map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
           end
     }
-}}
+}
+
+return {fugitive, gitsigns}
