@@ -113,7 +113,9 @@ local neogit = {
         "nvim-telescope/telescope.nvim", -- optional
     },
     config = function()
-
+        local neogit_rq = require('neogit')
+        vim.keymap.set("n", "<leader>gc", function() neogit_rq.open({ "commit" }) end, { desc = "open fugitive" })
    end
 }
+
 return { fugitive, gitsigns, neogit }
