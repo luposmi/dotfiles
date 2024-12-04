@@ -113,8 +113,27 @@ local neogit = {
     },
     config = function()
         local neogit_rq = require('neogit')
-        vim.keymap.set("n", "<leader>gc", function() neogit_rq.open({ "commit" }) end, { desc = "create commit" })
         vim.keymap.set("n", "<leader>gs", neogit_rq.open, { desc = "open neogit" })
+
+        vim.keymap.set("n", "<leader>gA", function() neogit_rq.open({ "cherry_pick" }) end, { desc = "git cherry_pick" })
+        vim.keymap.set("n", "<leader>gb", function() neogit_rq.open({ "branch" }) end, { desc = "git branch" })
+        vim.keymap.set("n", "<leader>gB", function() neogit_rq.open({ "bisect" }) end, { desc = "git bisect" })
+        vim.keymap.set("n", "<leader>gc", function() neogit_rq.open({ "commit" }) end, { desc = "create commit" })
+        vim.keymap.set("n", "<leader>gd", function() neogit_rq.open({ "diff" }) end, { desc = "git diff" })
+        vim.keymap.set("n", "<leader>gf", function() neogit_rq.open({ "fetch" }) end, { desc = "git fetch" })
+        vim.keymap.set("n", "<leader>gI", function() neogit_rq.open({ "init" }) end, { desc = "git init" })
+        vim.keymap.set("n", "<leader>gi", function() neogit_rq.open({ "ignore" }) end, { desc = "git ignore" })
+        vim.keymap.set("n", "<leader>gl", function() neogit_rq.open({ "log" }) end, { desc = "git log" })
+        vim.keymap.set("n", "<leader>gm", function() neogit_rq.open({ "merge" }) end, { desc = "git merge" })
+        vim.keymap.set("n", "<leader>gpl", function() neogit_rq.open({ "pull" }) end, { desc = "git pull" })
+        vim.keymap.set("n", "<leader>gps", function() neogit_rq.open({ "push" }) end, { desc = "git push" })
+        vim.keymap.set("n", "<leader>gr", function() neogit_rq.open({ "rebase" }) end, { desc = "git rebase" })
+        vim.keymap.set("n", "<leader>gR", function() neogit_rq.open({ "remote" }) end, { desc = "git remote" })
+        vim.keymap.set("n", "<leader>gt", function() neogit_rq.open({ "tag" }) end, { desc = "git tag" })
+        vim.keymap.set("n", "<leader>gv", function() neogit_rq.open({ "revert" }) end, { desc = "git revert" })
+        vim.keymap.set("n", "<leader>gw", function() neogit_rq.open({ "worktree" }) end, { desc = "git worktree" })
+        vim.keymap.set("n", "<leader>gX", function() neogit_rq.open({ "reset" }) end, { desc = "git reset" })
+        vim.keymap.set("n", "<leader>gZ", function() neogit_rq.open({ "stash" }) end, { desc = "git stash" })
    end
 }
 
