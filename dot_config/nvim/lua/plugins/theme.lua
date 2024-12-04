@@ -1,4 +1,4 @@
-return {
+local rose_pine = {
     "rose-pine/neovim",
     name = "rose-pine",
     config = function()
@@ -75,3 +75,9 @@ return {
         -- vim.cmd("colorscheme rose-pine-dawn")
     end
 }
+
+local kangawa = {
+    "rebelot/kanagawa.nvim"
+}
+
+return kangawa
