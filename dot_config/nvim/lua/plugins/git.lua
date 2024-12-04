@@ -2,7 +2,6 @@
 local fugitive = {
     "tpope/vim-fugitive",
     config = function()
-        vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "open fugitive" })
     end
 }
 local gitsigns = {
@@ -115,6 +114,7 @@ local neogit = {
     config = function()
         local neogit_rq = require('neogit')
         vim.keymap.set("n", "<leader>gc", function() neogit_rq.open({ "commit" }) end, { desc = "create commit" })
+        vim.keymap.set("n", "<leader>gs", neogit_rq.open, { desc = "open neogit" })
    end
 }
 
