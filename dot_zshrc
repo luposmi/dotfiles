@@ -102,3 +102,5 @@ if [ ! -d $PLUGIN_PATH/syntax-highlighting ]; then
 fi
 
 source $PLUGIN_PATH/syntax-highlighting/zsh-syntax-highlighting.zsh
+
+eval "$(atuin init zsh)"
