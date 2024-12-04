@@ -4,7 +4,7 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "moves the current line up
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "moves the current line down" })
 
 vim.keymap.set("n", "J", "mzJ`z", { desc = "append next line to current line, don't move cursor" })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "half page up, cursor in middle" })
+vim.keymap.set("n", "<C-o>", "<C-d>zz", { desc = "half page up, cursor in middle" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "half page down, cursor in middle" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "repeat Search stay in middle" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "repeat Search opposide stay in middle" })
@@ -15,7 +15,7 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without copy
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "copy to system clippboard" })
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "copy to system clippboard" })
 
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+vim.keymap.set("n", "<C-g>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 -- quickfix
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
