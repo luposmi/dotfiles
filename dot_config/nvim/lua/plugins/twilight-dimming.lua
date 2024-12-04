@@ -4,8 +4,8 @@ return {
         dimming = {
             alpha = 0.2, -- amount of dimming
             -- we try to get the foreground from the highlight groups or fallback color
-            --color = { "Normal", "#ffffff" },
-            color = {},
+            color = { "Normal", "#ffffff" },
+            --color = {},
             term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
             inactive = false,    -- when true, other windows will be fully dimmed (unless they contain the same buffer)
         },
