@@ -102,5 +102,18 @@ local gitsigns = {
           end
     }
 }
+local neogit = {
+  "NeogitOrg/neogit",
+  dependencies = {
+    "nvim-lua/plenary.nvim",         -- required
+    "sindrets/diffview.nvim",        -- optional - Diff integration
 
-return {fugitive, gitsigns}
+    -- Only one of these is needed.
+    "nvim-telescope/telescope.nvim", -- optional
+    "ibhagwan/fzf-lua",              -- optional
+    "echasnovski/mini.pick",         -- optional
+  },
+  config = function ()
+  end
+}
+return {fugitive, gitsigns, neogit}
