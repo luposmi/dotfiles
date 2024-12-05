@@ -47,6 +47,28 @@ return {
                     terminalKind = "integrated",
                 }
             }
+            dap.configurations.bash = {
+                {
+                    type = 'bashdb',
+                    request = 'launch',
+                    name = "Launch file",
+                    showDebugOutput = true,
+                    pathBashdb = vim.fn.stdpath("data") ..
+                    '/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb',
+                    pathBashdbLib = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir',
+                    trace = true,
+                    file = "${file}",
+                    program = "${file}",
+                    cwd = '${workspaceFolder}',
+                    pathCat = "cat",
+                    pathBash = "/bin/bash",
+                    pathMkfifo = "mkfifo",
+                    pathPkill = "pkill",
+                    args = {},
+                    env = {},
+                    terminalKind = "integrated",
+                }
+            }
             vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
             vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
 
@@ -61,6 +83,7 @@ return {
             vim.keymap.set("n", "<F4>", dap.step_out)
             vim.keymap.set("n", "<F5>", dap.step_back)
             vim.keymap.set("n", "<F13>", dap.restart)
+            vim.keymap.set("n", "<leader>d", ui.toggle, {desc = "toggle debugger"})
 
             dap.listeners.before.attach.dapui_config = function()
                 ui.open()
