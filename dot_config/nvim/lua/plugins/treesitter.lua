@@ -14,7 +14,7 @@ return {
                 "haskell", "html",  "java", "javascript", "json", "latex",  "llvm", "lua",
                  "nix", "ocaml",
                 "python",  "rust",  "sql",
-                 "typescript", "xml", "yaml", "zig"
+                 "typescript", "xml", "yaml", "zig", "kdl"
             },
             sync_install = false,
             highlight = { enable = true },
