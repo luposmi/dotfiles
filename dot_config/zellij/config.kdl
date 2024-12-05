@@ -2,7 +2,21 @@ keybinds clear-defaults=true {
     locked {
         bind "Ctrl g" { SwitchToMode "normal"; }
     }
+    normal {
+        bind "Alt Ctrl Shift 0" { SwitchToMode "locked"; }
+    }
+    shared {
+        bind "Alt 0" { ToggleFloatingPanes; }
+        bind "Alt Shift 0" { SwitchToMode "pane"; }
+        bind "Alt Ctrl 0" { SwitchToMode "tab"; }
+        bind "Alt Ctrl Shift 0" { SwitchToMode "normal"; }
+        bind "Alt 9" { GoToTab 1; }
+        bind "Alt Shift 9" { GoToTab 2; }
+        bind "Alt Ctrl 9" { GoToTab 3; }
+        bind "Alt Ctrl Shift 9" { GoToTab 4; }
+    }
     pane {
+        bind "Alt Shift 0" { SwitchToMode "locked"; }
         bind "left" { MoveFocus "left"; }
         bind "down" { MoveFocus "down"; }
         bind "up" { MoveFocus "up"; }
@@ -26,6 +40,7 @@ keybinds clear-defaults=true {
         bind "tab" { SwitchFocus; }
     }
     tab {
+        bind "Alt Ctrl 0" { SwitchToMode "locked"; }
         bind "left" { GoToPreviousTab; }
         bind "down" { GoToNextTab; }
         bind "up" { GoToPreviousTab; }
