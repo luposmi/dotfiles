@@ -83,7 +83,8 @@ return {
             vim.keymap.set("n", "<F4>", dap.step_out)
             vim.keymap.set("n", "<F5>", dap.step_back)
             vim.keymap.set("n", "<F13>", dap.restart)
-            vim.keymap.set("n", "<leader>d", ui.toggle, {desc = "toggle debugger"})
+            vim.keymap.set("n", "<leader>pu", ui.toggle, {desc = "toggle debugger"})
+            vim.keymap.set("n", "<leader>pt", function() dap.terminate(); ui.close() end, {desc = "terminate debugger"})
 
             dap.listeners.before.attach.dapui_config = function()
                 ui.open()
