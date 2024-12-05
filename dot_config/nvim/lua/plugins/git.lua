@@ -113,6 +113,7 @@ local neogit = {
     },
     config = function()
         local neogit_rq = require('neogit')
+        neogit_rq.setup {}
         vim.keymap.set("n", "<leader>gs", neogit_rq.open, { desc = "open neogit" })
 
         vim.keymap.set("n", "<leader>gA", function() neogit_rq.open({ "cherry_pick" }) end, { desc = "git cherry_pick" })
