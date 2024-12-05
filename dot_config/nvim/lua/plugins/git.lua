@@ -24,7 +24,7 @@ local gitsigns = {
             untracked    = { text = '┆' },
         },
         signs_staged_enable          = true,
-        signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
+        signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
         numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
         linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
         word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
@@ -45,7 +45,7 @@ local gitsigns = {
         current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
         sign_priority                = 6,
         update_debounce              = 100,
-        status_formatter             = nil, -- Use default
+        status_formatter             = nil,   -- Use default
         max_file_length              = 40000, -- Disable if file is longer than this (in lines)
         preview_config               = {
             -- Options passed to nvim_open_win
@@ -106,8 +106,8 @@ local gitsigns = {
 local neogit = {
     "NeogitOrg/neogit",
     dependencies = {
-        "nvim-lua/plenary.nvim",     -- required
-        "sindrets/diffview.nvim",    -- optional - Diff integration
+        "nvim-lua/plenary.nvim",         -- required
+        "sindrets/diffview.nvim",        -- optional - Diff integration
         -- Only one of these is needed.
         "nvim-telescope/telescope.nvim", -- optional
     },
@@ -135,7 +135,7 @@ local neogit = {
         vim.keymap.set("n", "<leader>gw", function() neogit_rq.open({ "worktree" }) end, { desc = "git worktree" })
         vim.keymap.set("n", "<leader>gX", function() neogit_rq.open({ "reset" }) end, { desc = "git reset" })
         vim.keymap.set("n", "<leader>gZ", function() neogit_rq.open({ "stash" }) end, { desc = "git stash" })
-   end
+    end
 }
 
 return { fugitive, gitsigns, neogit }
