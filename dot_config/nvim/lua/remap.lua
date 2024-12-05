@@ -31,3 +31,10 @@ vim.keymap.set("n", "<leader><leader>", function()
 end, { desc = "apply current file, aka so"})
 
 vim.keymap.set("n", "<leader>m", ":marks<CR>",{ desc = "show marks"})
+
+
+-- window navigation
+vim.keymap.set("n", "<C-S-h>","<C-w>h", {desc = "go left one window"})
+vim.keymap.set("n", "<C-S-j>","<C-w>j", {desc = "go down one window"})
+vim.keymap.set("n", "<C-S-k>","<C-w>k", {desc = "go up one window"})
+vim.keymap.set("n", "<C-S-l>","<C-w>l", {desc = "go right one window"})
