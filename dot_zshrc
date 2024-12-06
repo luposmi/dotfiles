@@ -74,11 +74,6 @@ else
 fi
 
 
-########## Tmux sessionizer #########
-if [ -d ~/$(tmux display-message -p '#S') ] && [ -n "$TMUX" ]; then
-cd ~/$(tmux display-message -p '#S')
-fi
-
 ########## syntax highlight ##########
 PLUGIN_PATH=$HOME/.zshpl
 if [ ! -d $PLUGIN_PATH ]; then
