@@ -73,6 +73,9 @@ else
     PS1='%(!.%F{red}.%F{green})%n %F{4}%B%~%b%f $ '
 fi
 
+if command -v oh-my-posh &> /dev/null; then
+    eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh.toml)"
+fi
 
 ########## syntax highlight ##########
 PLUGIN_PATH=$HOME/.zshpl
