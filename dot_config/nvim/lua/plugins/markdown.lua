@@ -21,7 +21,7 @@ local renderer = {
             },
             custom = {
                 todo = { raw = '[-]', rendered = '', highlight = 'RenderMarkdownTodo', scope_highlight = nil },
-                rightarrow = { raw = '[>]', rendered = '󰧛' , highlight = 'RenderMarkdownRightArrow', scope_highlight = nil },
+                rightarrow = { raw = '[>]', rendered = '󰧛', highlight = 'RenderMarkdownRightArrow', scope_highlight = nil },
                 tilde = { raw = '[~]', rendered = '󰰱', highlight = 'RenderMarkdownTilde', scope_highlight = nil },
                 important = { raw = '[!]', rendered = '', highlight = 'RenderMarkdownImportant', scope_highlight = nil },
             },
