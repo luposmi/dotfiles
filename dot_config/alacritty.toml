@@ -1,4 +1,5 @@
 [terminal]
+osc52 = "CopyPaste"
 shell = "/bin/zsh"
 osc52 = "CopyPaste"
 [env]
