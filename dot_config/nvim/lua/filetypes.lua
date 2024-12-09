@@ -17,3 +17,9 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
         vim.cmd("TSBufEnable highlight");
     end
 })
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = "*.conf.tmpl",
+    callback = function ()
+        vim.bo.filetype = "conf"
+    end
+})
