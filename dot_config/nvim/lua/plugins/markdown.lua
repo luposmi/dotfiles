@@ -104,7 +104,7 @@ local preview = {
         vim.g.mkdp_filetypes = { "markdown" }
     end,
     config = function()
-        vim.keymap.set("n","<leader>op","<cmd>MarkdownPreviewToggle", { desc = "open markdown preview"})
+        vim.keymap.set("n", "<leader>op", "<cmd>MarkdownPreviewToggle<CR>", { desc = "open markdown preview" })
     end
 }
 return { renderer, obsidian, preview }
