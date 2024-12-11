@@ -85,7 +85,10 @@ local obsidian = {
                 path = "~/Documents",
             },
         },
-        ui = { enable = false }
+        ui = { enable = false },
+        follow_url_func = function(url)
+            vim.fn.jobstart({"xdg-open", url})
+        end
 
         -- see below for full list of options 👇
     },
