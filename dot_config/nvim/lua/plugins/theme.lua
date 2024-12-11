@@ -69,7 +69,7 @@ local rose_pine = {
             end,
         })
 
-        vim.cmd("colorscheme rose-pine")
+        -- vim.cmd("colorscheme rose-pine")
         -- vim.cmd("colorscheme rose-pine-main")
         -- vim.cmd("colorscheme rose-pine-moon")
         -- vim.cmd("colorscheme rose-pine-dawn")
@@ -84,4 +84,4 @@ local kangawa = {
     end
 }
 
-return kangawa
+return {kangawa, rose_pine}
