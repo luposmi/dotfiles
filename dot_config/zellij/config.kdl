@@ -10,6 +10,10 @@ keybinds clear-defaults=true {
         bind "Alt Shift 0" { SwitchToMode "pane"; }
         bind "Alt Ctrl 0" { SwitchToMode "tab"; }
         bind "Alt Ctrl Shift 0" { SwitchToMode "normal"; }
+        bind "Alt 8" { ToggleFloatingPanes; }
+        bind "Alt Shift 8" { SwitchToMode "move"; }
+        bind "Alt Ctrl 8" { SwitchToMode "resize"; }
+        bind "Alt Ctrl Shift 8" { SwitchToMode "normal"; }
         bind "Alt 9" { GoToTab 1; }
         bind "Alt Shift 9" { GoToTab 2; }
         bind "Alt Ctrl 9" { GoToTab 3; }
