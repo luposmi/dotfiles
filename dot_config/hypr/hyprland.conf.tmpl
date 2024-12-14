@@ -187,11 +187,17 @@ bindm = $mainMod, mouse:273, resizewindow
 
 # Media config
 bindl = , XF86AudioPlay, exec, playerctl play-pause
+bindl =SHIFT ,XF86AudioPlay , exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
 bindl = , XF86AudioPrev, exec, playerctl previous
 bindl = , XF86AudioNext, exec, playerctl next
 bindl = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
 bindle=,XF86AudioRaiseVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ +5%  
+bindl =SHIFT, XF86AudioRaiseVolume, exec, playerctl next
+
 bindle=,XF86AudioLowerVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ -5%  
+bindl = , XF86AudioLowerVolume, exec, playerctl previous
 
 # Brightness controll
 bindle=,XF86MonBrightnessUp,exec,brightnessctl set 10%+
