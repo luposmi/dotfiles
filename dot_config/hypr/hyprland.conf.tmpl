@@ -197,7 +197,7 @@ bindle=,XF86AudioRaiseVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindl =SHIFT, XF86AudioRaiseVolume, exec, playerctl next
 
 bindle=,XF86AudioLowerVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ -5%  
-bindl = , XF86AudioLowerVolume, exec, playerctl previous
+bindl =SHIFT , XF86AudioLowerVolume, exec, playerctl previous
 
 # Brightness controll
 bindle=,XF86MonBrightnessUp,exec,brightnessctl set 10%+
