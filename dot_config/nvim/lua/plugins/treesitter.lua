@@ -4,9 +4,6 @@ return {
     build = ":TSUpdate",
     dependencies = { "nvim-treesitter/nvim-treesitter-context",
         "nvim-treesitter/nvim-treesitter-textobjects" },
-    build = function()
-        require("nvim-treesitter.install").update({ with_sync = true })()
-    end,
     opts = {
             ensure_installed = {   "bash", "c", "clojure", "cmake", "commonlisp", "cpp", "css",
                 "csv", "dart", "diff", "dockerfile",  "gdscript",
@@ -14,7 +11,7 @@ return {
                 "haskell", "html",  "java", "javascript", "json", "latex",  "llvm", "lua",
                  "nix", "ocaml",
                 "python",  "rust",  "sql",
-                 "typescript", "xml", "yaml", "zig", "kdl"
+                 "typescript", "xml", "yaml", "zig", "kdl", "just"
             },
             sync_install = false,
             highlight = { enable = true },
