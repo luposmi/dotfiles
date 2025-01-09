@@ -39,6 +39,7 @@ local context = {
 }
 local textobjects = {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    event = { "BufReadPre", "BufNewFile" },
     lazy = true,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
@@ -130,6 +131,15 @@ local textobjects = {
                         ["[C"] = { query = "@class.outer", desc = "Prev class end" },
                         ["[I"] = { query = "@conditional.outer", desc = "Prev conditional end" },
                         ["[L"] = { query = "@loop.outer", desc = "Prev loop end" },
+                    },
+                },
+                lsp_interop = {
+                    enable = true,
+                    border = 'none',
+                    floating_preview_opts = {},
+                    peek_definition_code = {
+                        ["<leader>ef"] = "@function.outer",
+                        ["<leader>eF"] = "@class.outer",
                     },
                 },
             },
