@@ -11,7 +11,10 @@ local treesitter = {
                 "haskell", "html", "java", "javascript", "json", "latex", "llvm", "lua",
                 "nix", "ocaml",
                 "python", "rust", "sql",
-                "typescript", "xml", "yaml", "zig", "kdl", "just", "desktop", "comment", "disassembly", "devicetree", "elixir", "editorconfig", "make", "meson", "latex", "kotlin", "linkerscript", "luadoc", "matlab", "ninja", "objdump", "passwd", "perl", "php", "printf", "properties", "r", "scala", "scheme", "scss", "ssh_config", "tablegen", "udev"
+                "typescript", "xml", "yaml", "zig", "kdl", "just", "desktop", "comment", "disassembly", "devicetree",
+                "elixir", "editorconfig", "make", "meson", "latex", "kotlin", "linkerscript", "luadoc", "matlab", "ninja",
+                "objdump", "passwd", "perl", "php", "printf", "properties", "r", "scala", "scheme", "scss", "ssh_config",
+                "tablegen", "udev"
             },
             sync_install = false,
             auto_install = true,
