@@ -4,8 +4,8 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "moves the current line up
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "moves the current line down" })
 
 vim.keymap.set("n", "J", "mzJ`z", { desc = "append next line to current line, don't move cursor" })
-vim.keymap.set("n", "<C-i>", "24jzz", { desc = "half page up, cursor in middle" })
-vim.keymap.set("n", "<C-u>", "24kzz", { desc = "half page down, cursor in middle" })
+vim.keymap.set("n", "<C-u>", "24jzz", { desc = "half page up, cursor in middle" })
+vim.keymap.set("n", "<C-i>", "24kzz", { desc = "half page down, cursor in middle" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "repeat Search stay in middle" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "repeat Search opposide stay in middle" })
 
