@@ -9,7 +9,7 @@ opacity = 0.85
 #normal = { family = "Iosevka Term medium"}
 normal = { family = "IosevkaTerm NF Medium" }
 # arch pkg: ttf-iosevkaterm-nerd
-size = 11.5
+size = 10.0
 
 [cursor]
 style.shape = "Block"
