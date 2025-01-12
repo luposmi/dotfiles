@@ -79,20 +79,38 @@ local obsidian = {
 
         -- see below for full list of optional dependencies 👇
     },
-    opts = {
-        workspaces = {
-            {
-                name = "personal",
-                path = "~/Documents",
+    config = function()
+        require("obsidian").setup({
+            workspaces = {
+                {
+                    name = "personal",
+                    path = "~/Documents",
+                },
             },
-        },
-        ui = { enable = false },
-        follow_url_func = function(url)
-            vim.fn.jobstart({"xdg-open", url})
-        end
+            ui = { enable = false },
+            follow_url_func = function(url)
+                vim.fn.jobstart({ "xdg-open", url })
+            end,
+            daily_notes = {
+                folder = "5_dailies",
+                date_format = "%Y-%m-%d",
+                -- alias_format
+                default_tags = { "daily-note" },
+                template = "daily.md"
+            },
+            templates = {
+                folder = "9-templates",
+                substitutions = {}
+            },
 
-        -- see below for full list of options 👇
-    },
+            -- see below for full list of options 👇
+        })
+        vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianTags<CR>", { desc = "obsidian tags" })
+        vim.keymap.set("n", "<leader>oc", "<cmd>ObsidianTOC<CR>", { desc = "obsidian table of content" })
+        vim.keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<CR>", { desc = "obsidian backlinks" })
+        vim.keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<CR>", { desc = "obsidian backlinks" })
+        vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianToday<CR>", { desc = "obsidian today" })
+    end
 }
 
 local preview = {
