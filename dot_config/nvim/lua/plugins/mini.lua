@@ -54,6 +54,8 @@ return {
                 silent = false,
             }
         )
+        require("mini.statusline").setup()
+        require("mini.tabline").setup()
         require("mini.icons").setup()
         require("mini.operators").setup()
         require("mini.surround").setup({
