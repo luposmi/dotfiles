@@ -46,41 +46,41 @@ local textobjects = {
         require("nvim-treesitter.configs").setup({
             textobjects = {
                 select = {
-                    enable = true,
+                    enable = false,
 
                     -- Automatically jump forward to textobj, similar to targets.vim
                     lookahead = true,
 
                     keymaps = {
                         -- You can use the capture groups defined in textobjects.scm
-                        ["a="] = { query = "@assignment.outer", desc = "Select outer part of an assignment" },
-                        ["i="] = { query = "@assignment.inner", desc = "Select inner part of an assignment" },
-                        ["l="] = { query = "@assignment.lhs", desc = "Select left hand side of an assignment" },
-                        ["r="] = { query = "@assignment.rhs", desc = "Select right hand side of an assignment" },
+                        ["a="] = { query = "@assignment.outer", desc = "outer assignment" },
+                        ["i="] = { query = "@assignment.inner", desc = "inner assignment" },
+                        ["l="] = { query = "@assignment.lhs", desc = "left assignment" },
+                        ["r="] = { query = "@assignment.rhs", desc = "right assignment" },
 
                         -- works for javascript/typescript files (custom capture I created in after/queries/ecma/textobjects.scm)
-                        ["a:"] = { query = "@property.outer", desc = "Select outer part of an object property" },
-                        ["i:"] = { query = "@property.inner", desc = "Select inner part of an object property" },
-                        ["l:"] = { query = "@property.lhs", desc = "Select left part of an object property" },
-                        ["r:"] = { query = "@property.rhs", desc = "Select right part of an object property" },
+                        ["a:"] = { query = "@property.outer", desc = "outer object property" },
+                        ["i:"] = { query = "@property.inner", desc = "inner object property" },
+                        ["l:"] = { query = "@property.lhs", desc = "left object property" },
+                        ["r:"] = { query = "@property.rhs", desc = "right object property" },
 
-                        ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a parameter/argument" },
-                        ["ia"] = { query = "@parameter.inner", desc = "Select inner part of a parameter/argument" },
+                        ["aa"] = { query = "@parameter.outer", desc = "outer parameter/argument" },
+                        ["ia"] = { query = "@parameter.inner", desc = "inner parameter/argument" },
 
-                        ["ai"] = { query = "@conditional.outer", desc = "Select outer part of a conditional" },
-                        ["ii"] = { query = "@conditional.inner", desc = "Select inner part of a conditional" },
+                        ["ai"] = { query = "@conditional.outer", desc = "outer conditional" },
+                        ["ii"] = { query = "@conditional.inner", desc = "inner conditional" },
 
-                        ["al"] = { query = "@loop.outer", desc = "Select outer part of a loop" },
-                        ["il"] = { query = "@loop.inner", desc = "Select inner part of a loop" },
+                        ["al"] = { query = "@loop.outer", desc = "outer loop" },
+                        ["il"] = { query = "@loop.inner", desc = "inner loop" },
 
-                        ["af"] = { query = "@call.outer", desc = "Select outer part of a function call" },
-                        ["if"] = { query = "@call.inner", desc = "Select inner part of a function call" },
+                        ["af"] = { query = "@call.outer", desc = "outer function call" },
+                        ["if"] = { query = "@call.inner", desc = "inner function call" },
 
-                        ["am"] = { query = "@function.outer", desc = "Select outer part of a method/function definition" },
-                        ["im"] = { query = "@function.inner", desc = "Select inner part of a method/function definition" },
+                        ["am"] = { query = "@function.outer", desc = "outer method/function definition" },
+                        ["im"] = { query = "@function.inner", desc = "inner method/function definition" },
 
-                        ["ac"] = { query = "@class.outer", desc = "Select outer part of a class" },
-                        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class" },
+                        ["ac"] = { query = "@class.outer", desc = "outer class" },
+                        ["ic"] = { query = "@class.inner", desc = "inner class" },
                     },
                 },
                 swap = {
@@ -150,12 +150,6 @@ local textobjects = {
         -- vim way: ; goes to the direction you were moving.
         vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
         vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
-
-        -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
-        vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
-        vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
-        vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
-        vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
     end,
 }
 
