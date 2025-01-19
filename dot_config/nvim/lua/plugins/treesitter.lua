@@ -34,7 +34,7 @@ local treesitter = {
     end,
 }
 local context = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
+    "nvim-treesitter/nvim-treesitter-context",
     dependencies = { "nvim-treesitter/nvim-treesitter" }
 }
 local textobjects = {
