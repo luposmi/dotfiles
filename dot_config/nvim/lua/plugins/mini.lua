@@ -55,7 +55,16 @@ return {
             }
         )
         require("mini.icons").setup()
-        require("mini.surround").setup()
+        require("mini.operators").setup()
+        require("mini.surround").setup({
+            custom_surroundings = {
+                B = {
+                    input = { '%*%*().-()%*%*' },
+
+                    output = { left = "**", right = "**" }
+                }
+            }
+        })
         local clue = require("mini.clue")
         clue.setup({
             triggers = {
