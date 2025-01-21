@@ -45,7 +45,7 @@ return {
                     highlight = 250,
 
                     -- Delay between jump and automatic stop if idle (no jump is done)
-                    idle_stop = 0,
+                    idle_stop = 10000000,
                 },
 
                 -- Whether to disable showing non-error feedback
@@ -61,10 +61,9 @@ return {
         require("mini.surround").setup({
             custom_surroundings = {
                 B = {
-                    input = { '%*%*().-()%*%*' },
+                    input = { '%*%*().-()%*%*'},
 
-                    output = { left = "**", right = "**" }
-                }
+                    output = { left = "**", right = "**" } }
             }
         })
         local clue = require("mini.clue")
@@ -115,6 +114,8 @@ return {
                 { mode = 'v', keys = 'a' },
                 { mode = 'v', keys = 'i' },
 
+                -- latex compiler
+                { mode = 'n', keys = '\\l' },
             },
 
             clues = {
