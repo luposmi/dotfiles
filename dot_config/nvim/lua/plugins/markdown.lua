@@ -79,6 +79,14 @@ local obsidian = {
 
         -- see below for full list of optional dependencies 👇
     },
+    keys = {
+        { "<leader>ot", "<cmd>ObsidianTags<CR>",      desc = "obsidian tags" },
+        { "<leader>oc", "<cmd>ObsidianTOC<CR>",       desc = "obsidian table of content" },
+        { "<leader>ob", "<cmd>ObsidianBacklinks<CR>", desc = "obsidian backlinks" },
+        { "<leader>ob", "<cmd>ObsidianBacklinks<CR>", desc = "obsidian backlinks" },
+        { "<leader>ot", "<cmd>ObsidianToday<CR>",     desc = "obsidian today" },
+    },
+
     config = function()
         require("obsidian").setup({
             workspaces = {
@@ -105,11 +113,6 @@ local obsidian = {
 
             -- see below for full list of options 👇
         })
-        vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianTags<CR>", { desc = "obsidian tags" })
-        vim.keymap.set("n", "<leader>oc", "<cmd>ObsidianTOC<CR>", { desc = "obsidian table of content" })
-        vim.keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<CR>", { desc = "obsidian backlinks" })
-        vim.keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<CR>", { desc = "obsidian backlinks" })
-        vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianToday<CR>", { desc = "obsidian today" })
     end
 }
 
