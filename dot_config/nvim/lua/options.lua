@@ -42,3 +42,8 @@ vim.opt.colorcolumn = "120"   -- the column to signal you should wrap
 
 -- timeout
 vim.opt.timeoutlen = 1000 -- we increase the timeout length as vim fugitive otherwise doesnt work
+
+-- folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.cmd([[ set nofoldenable]])
