@@ -3,7 +3,7 @@ local rose_pine = {
     name = "rose-pine",
     config = function()
         require("rose-pine").setup({
-            variant = "auto", -- auto, main, moon, or dawn
+            variant = "auto",      -- auto, main, moon, or dawn
             dark_variant = "main", -- main, moon, or dawn
             dim_inactive_windows = false,
             extend_background_behind_borders = true,
@@ -11,7 +11,7 @@ local rose_pine = {
             enable = {
                 terminal = true,
                 legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
-                migrations = true, -- Handle deprecated options automatically
+                migrations = true,        -- Handle deprecated options automatically
             },
 
             styles = {
@@ -83,5 +83,78 @@ local kangawa = {
         vim.cmd("colorscheme kanagawa")
     end
 }
+local catppuccin = {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    opts = {
+        highlight_overrides = {
+            all = function(colors)
+                return {
+                    CurSearch = { bg = colors.sky },
+                    IncSearch = { bg = colors.sky },
+                    CursorLineNr = { fg = colors.blue, style = { "bold" } },
+                    DashboardFooter = { fg = colors.overlay0 },
+                    TreesitterContextBottom = { style = {} },
+                    WinSeparator = { fg = colors.overlay0, style = { "bold" } },
+                    ["@markup.italic"] = { fg = colors.blue, style = { "italic" } },
+                    ["@markup.strong"] = { fg = colors.blue, style = { "bold" } },
+                    Headline = { style = { "bold" } },
+                }
+            end,
+        },
+        color_overrides = {
+            macchiato = {
+--[[                rosewater = "#F5B8AB",
+                flamingo = "#F29D9D",
+                pink = "#AD6FF7",
+                mauve = "#FF8F40",
+                red = "#E66767",
+                maroon = "#EB788B",
+                peach = "#FAB770",
+                yellow = "#FACA64",
+                green = "#70CF67",
+                teal = "#4CD4BD",
+                sky = "#61BDFF",
+                sapphire = "#4BA8FA",
+                blue = "#00BFFF",
+                lavender = "#00BBCC",
+                text = "#C1C9E6", ]]--
+                rosewater = "#f4dbd6",
+                flamingo = "#f0c6c6",
+                pink = "#f5bde6",
+                mauve = "#c6a0f6",
+                red = "#ed8796",
+                maroon = "#ee99a0",
+                peach = "#f5a97f",
+                yellow = "#eed49f",
+                green = "#a6da95",
+                teal = "#8bd5ca",
+                sky = "#91d7e3",
+                sapphire = "#7dc4e4",
+                blue = "#8aadf4",
+                lavender = "#b7bdf8",
+                text = "#cad3f5",
+                subtext1 = "#A3AAC2",
+                subtext0 = "#8E94AB",
+                overlay2 = "#7D8296",
+                overlay1 = "#676B80",
+                overlay0 = "#464957",
+                surface2 = "#3A3D4A",
+                surface1 = "#2F313D",
+                surface0 = "#1D1E29",
+                base = "#070710",
+                mantle = "#11111a",
+                crust = "#191926",
+            },
+        },
+        integrations = {
+            telescope = {
+                enabled = true,
+                style = "nvchad",
+            },
+        },
+    }
+}
 
-return {kangawa, rose_pine}
+return { kangawa, rose_pine, catppuccin }

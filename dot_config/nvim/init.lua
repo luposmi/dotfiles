@@ -45,3 +45,5 @@ vim.g.clipboard = {
     ["*"] = paste,
   },
 }
+
+vim.cmd("colorscheme  catppuccin-macchiato")
