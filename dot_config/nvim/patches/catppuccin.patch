@@ -1,0 +1,13 @@
+diff --git a/lua/catppuccin/groups/integrations/render_markdown.lua b/lua/catppuccin/groups/integrations/render_markdown.lua
+index f169857..f542726 100644
+--- a/lua/catppuccin/groups/integrations/render_markdown.lua
++++ b/lua/catppuccin/groups/integrations/render_markdown.lua
+@@ -23,7 +23,7 @@ function M.get()
+ 	for i = 1, 6 do
+ 		local color = syntax["rainbow" .. i].fg
+ 		groups["RenderMarkdownH" .. i] = { fg = color }
+-		groups["RenderMarkdownH" .. i .. "Bg"] = { bg = U.darken(color, 0.30, base) }
++		groups["RenderMarkdownH" .. i .. "Bg"] = { bg = U.darken(color, 0.20) }
+ 	end
+ 
+ 	return groups
