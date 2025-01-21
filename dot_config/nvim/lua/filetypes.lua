@@ -26,6 +26,6 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
     pattern = "*.md",
     callback = function ()
-        vim.cmd("colorscheme rose-pine")
+        -- vim.cmd("colorscheme rose-pine")
     end
 })
