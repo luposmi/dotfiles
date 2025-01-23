@@ -6,6 +6,9 @@ local renderer = {
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {
+        quote = {
+            highlight = 'RenderMarkdownBullet'
+        },
         checkbox = {
             enabled = true,
             position = 'inline',
@@ -60,6 +63,64 @@ local renderer = {
 
     }
 }
+local function addSource(source)
+    vim.ui.input({ prompt = "Enter File Name" }, function(input)
+        if #input == 0 then
+            return
+        end
+        local client = require("obsidian").get_client()
+        -- vim.cmd(string.format("ObsidianNewFromTemplate 1-source_material/%s/%s source.md",source,input))
+        local note = client:create_note({
+            title = input,
+            id = input,
+            tags = { source },
+            -- TODO: How can i set the id independent of the files name?
+            --id = string.format("source-%s-%s",source,input),
+            dir = string.format("1-source_material/%s", source),
+            no_write = true,
+        })
+        client:open_note(note, { sync = true })
+        client:write_note_to_buffer(note, { template = "source.md" })
+    end)
+end
+
+local function insert_screenshot_link()
+    vim.fn.system("screenshot_area")
+
+    -- Define the screenshot directory
+    local screenshot_dir = vim.fn.expand("~/Pictures/Screenshots/")
+
+    -- Get the most recently created screenshot file
+    local last_screenshot = vim.fn.systemlist(string.format("ls -t %s | head -n 1", screenshot_dir))[1]
+    if not last_screenshot or last_screenshot == "" then
+        print("No screenshot found!")
+        return
+    end
+
+    -- Get the full path of the screenshot
+    local screenshot_path = screenshot_dir .. last_screenshot
+
+    -- :p for full path, :h for directory
+    local buffer_path = vim.fn.expand("%:p:h")
+    --local target_path = buffer_path .. "/assets/" .. last_screenshot
+    local assets_dir = buffer_path .. "/assets/"
+    vim.fn.mkdir(assets_dir, "p")
+    local target_path = assets_dir .. last_screenshot
+
+    -- Copy the screenshot to the current buffer's directory
+    print("test")
+    local result = vim.fn.system(string.format("cp -p %s %s", vim.fn.shellescape(screenshot_path),
+        vim.fn.shellescape(target_path)))
+    if vim.v.shell_error ~= 0 then
+        print("Error copying screenshot: " .. result)
+        return
+    end
+
+    -- Replace the line under the cursor with the Markdown image link
+    local image_link = string.format("![](assets/%s)", last_screenshot)
+    vim.api.nvim_set_current_line(image_link)
+end
+
 local obsidian = {
     "epwalsh/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
@@ -80,11 +141,14 @@ local obsidian = {
         -- see below for full list of optional dependencies 👇
     },
     keys = {
-        { "<leader>ot", "<cmd>ObsidianTags<CR>",      desc = "obsidian tags" },
-        { "<leader>oc", "<cmd>ObsidianTOC<CR>",       desc = "obsidian table of content" },
-        { "<leader>ob", "<cmd>ObsidianBacklinks<CR>", desc = "obsidian backlinks" },
-        { "<leader>ob", "<cmd>ObsidianBacklinks<CR>", desc = "obsidian backlinks" },
-        { "<leader>ot", "<cmd>ObsidianToday<CR>",     desc = "obsidian today" },
+        { "<leader>ot",  "<cmd>ObsidianTags<CR>",                 desc = "obsidian tags" },
+        { "<leader>oc",  "<cmd>ObsidianTOC<CR>",                  desc = "obsidian table of content" },
+        { "<leader>ob",  "<cmd>ObsidianBacklinks<CR>",            desc = "obsidian backlinks" },
+        { "<leader>ob",  "<cmd>ObsidianBacklinks<CR>",            desc = "obsidian backlinks" },
+        { "<leader>ot",  "<cmd>ObsidianToday<CR>",                desc = "obsidian today" },
+        { "<leader>osy", function() addSource("youtube") end,     desc = "new youtube source" },
+        { "<leader>osw", function() addSource("website") end,     desc = "new youtube source" },
+        { "<leader>oa",  function() insert_screenshot_link() end, desc = "new youtube source" },
     },
 
     config = function()
@@ -128,4 +192,11 @@ local preview = {
         vim.keymap.set("n", "<leader>op", "<cmd>MarkdownPreviewToggle<CR>", { desc = "open markdown preview" })
     end
 }
-return { renderer, obsidian, preview }
+local new_preview = {
+    "jannis-baum/vivify.vim",
+    config = function()
+        vim.keymap.set("n", "<leader>op", "<cmd>Vivify<CR>", { desc = "open markdown preview" })
+    end
+
+}
+return { renderer, obsidian, new_preview }
