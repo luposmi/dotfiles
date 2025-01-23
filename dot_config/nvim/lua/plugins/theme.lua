@@ -134,7 +134,7 @@ local catppuccin = {
                 sapphire = "#7dc4e4",
                 blue = "#8aadf4",
                 lavender = "#b7bdf8",
-                text = "#cad3f5",
+                text = "#e9effa", -- #cad3f5
                 subtext1 = "#A3AAC2",
                 subtext0 = "#8E94AB",
                 overlay2 = "#7D8296",
@@ -143,16 +143,12 @@ local catppuccin = {
                 surface2 = "#3A3D4A",
                 surface1 = "#2F313D",
                 surface0 = "#1D1E29",
-                base = "#070710",
+                base = "#070709",
                 mantle = "#11111a",
                 crust = "#191926",
             },
         },
         integrations = {
-            telescope = {
-                enabled = true,
-                style = "nvchad",
-            },
         },
     }
 }
