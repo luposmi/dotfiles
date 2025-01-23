@@ -23,19 +23,21 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "replace current item"})
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "set current file to executable"})
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    { desc = "replace current item" })
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "set current file to executable" })
 
-vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
-end, { desc = "apply current file, aka so"})
+vim.keymap.set("n", "<leader><leader>",
+    function()
+        vim.cmd("so"); local patcher = require("lazy-local-patcher"); patcher.restore_all(); patcher.apply_all();
+    end, { desc = "apply current file, aka so" })
 
-vim.keymap.set("n", "<leader>m", ":marks<CR>",{ desc = "show marks"})
+vim.keymap.set("n", "<leader>m", ":marks<CR>", { desc = "show marks" })
 
 
 -- window navigation
-vim.keymap.set("n", "<C-S-h>","<C-w>h", {desc = "go left one window"})
-vim.keymap.set("n", "<C-S-j>","<C-w>j", {desc = "go down one window"})
-vim.keymap.set("n", "<C-S-k>","<C-w>k", {desc = "go up one window"})
-vim.keymap.set("n", "<C-S-l>","<C-w>l", {desc = "go right one window"})
-vim.keymap.set("n", "<C-S-q>","<C-w>q", {desc = "close window"})
+vim.keymap.set("n", "<C-S-h>", "<C-w>h", { desc = "go left one window" })
+vim.keymap.set("n", "<C-S-j>", "<C-w>j", { desc = "go down one window" })
+vim.keymap.set("n", "<C-S-k>", "<C-w>k", { desc = "go up one window" })
+vim.keymap.set("n", "<C-S-l>", "<C-w>l", { desc = "go right one window" })
+vim.keymap.set("n", "<C-S-q>", "<C-w>q", { desc = "close window" })
