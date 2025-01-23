@@ -47,3 +47,5 @@ vim.g.clipboard = {
 }
 
 vim.cmd("colorscheme  catppuccin-macchiato")
+
+vim.cmd("highlight link @markup.quote.markdown Normal")
