@@ -1,0 +1,3 @@
+#!/bin/bash
+cd ~/Documents/6_projects/fzi/
+sudo openvpn profile-4663.ovpn

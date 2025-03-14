@@ -6,6 +6,14 @@ local renderer = {
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {
+        latex = { enabled = false },
+        win_options = { conceallevel = { rendered = 2 } },
+        on = {
+            attach = function()
+                --                 require('nabla').enable_virt({ autogen = true })
+            end,
+        },
+
         quote = {
             highlight = 'RenderMarkdownBullet'
         },
@@ -199,4 +207,4 @@ local new_preview = {
     end
 
 }
-return { renderer, obsidian, new_preview }
+return { { 'jbyuki/nabla.nvim' }, renderer, obsidian, new_preview }
