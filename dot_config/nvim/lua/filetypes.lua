@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
     end,
 })
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-    pattern = "*zshrc",
+    pattern = "*.zshrc",
     callback = function()
         vim.bo.filetype = "zsh"
     end,
@@ -18,9 +18,11 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
     end
 })
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-    pattern = "*.conf.tmpl",
-    callback = function ()
-        vim.bo.filetype = "conf"
+        pattern = "*.tmpl",
+    callback = function (args)
+        name = args.file
+        name_without_tmpl = string.gsub(name,".tmpl","")
+        vim.bo.filetype = vim.filetype.match({ filename= name_without_tmpl})
     end
 })
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
