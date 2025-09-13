@@ -27,7 +27,11 @@ hide_when_typing = true
 foreground = "#e3f1f2"
 bright_foreground = "#fcfdfc"
 dim_foreground = "#c1cdd8"
+{{- if eq .chezmoi.hostname "archlinux" }}
+background = "#000000"
+{{- else }}
 background = "#0e0d12"
+{{- end }}
 
 [colors.cursor]
 text = "#e0def4"
