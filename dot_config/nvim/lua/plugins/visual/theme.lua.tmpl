@@ -76,13 +76,15 @@ local rose_pine = {
     end
 }
 
-local kangawa = {
+local kanagawa = {
     "rebelot/kanagawa.nvim",
     config = function()
-        require("kanagawa").setup({ transparent = true })
-        vim.cmd("colorscheme kanagawa")
-    end
+        require("kanagawa").setup({
+            transparent = false,
+        })
+    end,
 }
+
 local catppuccin = {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -143,7 +145,11 @@ local catppuccin = {
                 surface2 = "#3A3D4A",
                 surface1 = "#2F313D",
                 surface0 = "#1D1E29",
+                {{- if eq .chezmoi.hostname "archlinux" }}
+                base = "#000000",
+                {{- else }}
                 base = "#070709",
+                {{- end }}
                 mantle = "#11111a",
                 crust = "#191926",
             },
@@ -153,4 +159,4 @@ local catppuccin = {
     }
 }
 
-return { kangawa, rose_pine, catppuccin }
+return { kanagawa, rose_pine, catppuccin }
