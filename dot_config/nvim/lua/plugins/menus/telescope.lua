@@ -10,7 +10,7 @@ return {
         vim.keymap.set('n', '<leader>pb', builtin.buffers, {})
         vim.keymap.set('n', '<leader>ph', builtin.help_tags, {})
         vim.keymap.set('n', '<leader>pt', builtin.treesitter, {})
-        vim.keymap.set('n', '<leader>sm',
+        vim.keymap.set('n', '<leader>vs',
             function() require('telescope.builtin').lsp_document_symbols({ symbols = { 'function', 'method' } }) end,
             { desc = "list all methods in file" })
     end
