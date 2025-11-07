@@ -43,14 +43,14 @@ return {
                 lsp_zero.default_setup,
                 lua_ls = function()
                     local lua_opts = lsp_zero.nvim_lua_ls()
-                    require('lspconfig').lua_ls.setup(lua_opts)
+                    vim.lsp.config.lua_ls.setup(lua_opts)
                 end,
             }
         })
 
-        require('lspconfig')['hls'].setup{
+        vim.lsp.config('hls', {
             filetypes = { 'haskell', 'lhaskell', 'cabal' },
-        }
+        })
 
         local cmp = require('cmp')
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
