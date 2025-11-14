@@ -38,7 +38,7 @@ return {
         -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
         require('mason').setup({})
         require('mason-lspconfig').setup({
-            ensure_installed = { "bashls", "clangd", "lua_ls", "rust_analyzer", "zls"},
+            ensure_installed = { "bashls", "clangd", "lua_ls", "rust_analyzer", "zls", "verible"},
             handlers = {
                 lsp_zero.default_setup,
                 lua_ls = function()
@@ -51,6 +51,16 @@ return {
         vim.lsp.config('hls', {
             filetypes = { 'haskell', 'lhaskell', 'cabal' },
         })
+
+        vim.lsp.config('verible', {
+          cmd = { vim.fn.stdpath("data") .. "/mason/bin/verible-verilog-ls" },
+              filetypes = { "verilog", "systemverilog" },
+              root_dir = require("lspconfig").util.root_pattern(
+                ".git",
+                "verible.config",
+                "compile_commands.json"),
+        })
+
 
         local cmp = require('cmp')
         local cmp_select = { behavior = cmp.SelectBehavior.Select }

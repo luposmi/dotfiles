@@ -31,3 +31,14 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
         -- vim.cmd("colorscheme rose-pine")
     end
 })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "verilog", "systemverilog" },
+  callback = function()
+    vim.lsp.start({
+      name = "verible",
+      cmd = { vim.fn.stdpath("data") .. "/mason/bin/verible-verilog-ls" },
+      root_dir = vim.fs.root(0, { ".git", "verible.config", "compile_commands.json" }),
+    })
+  end,
+})
+
