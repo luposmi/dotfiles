@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ $# -eq 1 ]]; then
+    name=$1
+else
+    name=$(bluetoothctl devices | cut -d ' ' -f2- | rofi -dmenu -ip "Select Device" | cut -d ' ' -f-1)
+fi
+
+if [[ -z $name ]]; then
+    exit 0
+fi
+
+
+if bluetoothctl info "$name" | grep -q "Connected: yes"; then
+    bluetoothctl disconnect "$name"
+else
+    bluetoothctl connect "$name"
+fi
+done
