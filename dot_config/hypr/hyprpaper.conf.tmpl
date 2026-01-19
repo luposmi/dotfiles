@@ -1,8 +1,11 @@
 {{- if eq .chezmoi.hostname "bogo-laptop" }}
-preload = ~/.config/assets/tkda3ntcfrh71.png
-wallpaper = ,~/.config/assets/tkda3ntcfrh71.png
+wallpaper {
+    monitor = 
+    path = ~/.config/assets/tkda3ntcfrh71.png
+}
 {{- else }}
-preload = ~/.config/assets/wallpaper.jpg
-wallpaper = ,~/.config/assets/wallpaper.jpg
+wallpaper {
+    monitor = 
+    path = ~/.config/assets/wallpaper.jpg
+}
 {{- end }}
-ipc = off 
