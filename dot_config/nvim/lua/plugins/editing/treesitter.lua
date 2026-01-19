@@ -2,9 +2,8 @@ local treesitter = {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
-    config = function()
-        local configs = require("nvim-treesitter.configs")
-        configs.setup({
+    config = 
+        {
             ensure_installed = { "asm", "bash", "c", "clojure", "cmake", "commonlisp", "cpp", "css",
                 "csv", "dart", "diff", "dockerfile", "gdscript",
                 "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore", "go",
@@ -30,8 +29,7 @@ local treesitter = {
                     node_decremental = "<bs>",
                 }
             }
-        })
-    end,
+        }
 }
 local context = {
     "nvim-treesitter/nvim-treesitter-context",
@@ -43,7 +41,7 @@ local textobjects = {
     lazy = true,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
-        require("nvim-treesitter.configs").setup({
+        require("nvim-treesitter").setup({
             textobjects = {
                 select = {
                     enable = false,
