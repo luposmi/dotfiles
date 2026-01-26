@@ -189,22 +189,10 @@ local obsidian = {
 }
 
 local preview = {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = "cd app && yarn install",
-    init = function()
-        vim.g.mkdp_filetypes = { "markdown" }
-    end,
-    config = function()
-        vim.keymap.set("n", "<leader>op", "<cmd>MarkdownPreviewToggle<CR>", { desc = "open markdown preview" })
-    end
-}
-local new_preview = {
     "jannis-baum/vivify.vim",
     config = function()
         vim.keymap.set("n", "<leader>op", "<cmd>Vivify<CR>", { desc = "open markdown preview" })
     end
 
 }
-return { { 'jbyuki/nabla.nvim' }, renderer, obsidian, new_preview }
+return { { 'jbyuki/nabla.nvim' }, renderer, obsidian, preview }
