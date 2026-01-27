@@ -132,7 +132,11 @@ bind = $mainMod, P, pseudo, # dwindle
 bind = $mainMod, J, togglesplit, # dwindle
 bind = $mainMod, F, fullscreen, 1
 bind = $mainMod SHIFT, F, fullscreen, 0
-windowrulev2 = noborder, fullscreen:1
+windowrule{
+    name = noborder-fullscreen
+    match:fullscreen = true
+    decorate = false
+}
 # Move focus or Window with wasd / arrow keys
 bind = $mainMod, left, movefocus, l
 bind = $mainMod, right, movefocus, r
