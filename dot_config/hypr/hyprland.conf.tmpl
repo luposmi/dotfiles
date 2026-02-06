@@ -148,16 +148,6 @@ bind = $mainMod SHIFT, right, movewindow, r
 bind = $mainMod SHIFT, up, movewindow, u
 bind = $mainMod SHIFT, down, movewindow, d
 
-bind = $mainMod SHIFT, A, movefocus, l
-bind = $mainMod SHIFT, D, movefocus, r
-bind = $mainMod SHIFT, W, movefocus, u
-bind = $mainMod SHIFT, S, movefocus, d
-
-bind = $mainMod CTRL, A, movewindow, l
-bind = $mainMod CTRL, D, movewindow, r
-bind = $mainMod CTRL, W, movewindow, u
-bind = $mainMod CTRL, S, movewindow, d
-
 bind = $mainMod, D, exec, rofi -show drun & sleep 0.2; hyprctl dispatch focuswindow "^(Rofi)"; sleep 0.2; hyprctl dispatch focuswindow "^(Rofi)"
 # Switch workspaces with mainMod + [0-9]
 bind = $mainMod, 1, workspace, 1
