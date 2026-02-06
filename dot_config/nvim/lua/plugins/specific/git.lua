@@ -377,4 +377,4 @@ local neogit = {
     end
 }
 
-return { fugitive, gitsigns, neogit }
+return { gitsigns, neogit }
