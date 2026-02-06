@@ -1,9 +1,3 @@
--- a git wrapper
-local fugitive = {
-    "tpope/vim-fugitive",
-    config = function()
-    end
-}
 local gitsigns = {
     "lewis6991/gitsigns.nvim",
     opts = {
