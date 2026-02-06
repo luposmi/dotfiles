@@ -25,8 +25,6 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
     { desc = "replace current item" })
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "set current file to executable" })
-
 vim.keymap.set("n", "<leader><leader>",
     function()
         vim.cmd("so"); local patcher = require("lazy-local-patcher"); patcher.restore_all(); patcher.apply_all();
