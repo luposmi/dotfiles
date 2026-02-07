@@ -13,7 +13,6 @@ return {
     },
 
     config = function()
-        local lspconfig = require('lspconfig')
         local cmp_lsp = require("cmp_nvim_lsp")
         
         local capabilities = vim.tbl_deep_extend(
@@ -50,13 +49,13 @@ return {
             handlers = {
                 -- Default handler for installed servers
                 function(server_name)
-                    lspconfig[server_name].setup({
+                    vim.lsp.config[server_name].setup({
                         capabilities = capabilities,
                     })
                 end,
 
                 ["lua_ls"] = function()
-                    lspconfig.lua_ls.setup({
+                    vim.lsp.config.lua_ls.setup({
                         capabilities = capabilities,
                         settings = {
                             Lua = {
@@ -67,20 +66,20 @@ return {
                 end,
 
                 ["verible"] = function()
-                    lspconfig.verible.setup({
+                    vim.lsp.config.verible.setup({
                         capabilities = capabilities,
                         cmd = { vim.fn.stdpath("data") .. "/mason/bin/verible-verilog-ls" },
                         filetypes = { "verilog", "systemverilog" },
-                        root_dir = lspconfig.util.root_pattern(".git", "verible.config", "compile_commands.json"),
+                        root_dir = vim.lsp.config.util.root_pattern(".git", "verible.config", "compile_commands.json"),
                     })
                 end,
             }
         })
 
-        lspconfig.hls.setup({
-            capabilities = capabilities,
-            filetypes = { 'haskell', 'lhaskell', 'cabal' },
-        })
+        -- vim.lsp.config.hls.setup({
+        --     capabilities = capabilities,
+        --     filetypes = { 'haskell', 'lhaskell', 'cabal' },
+        -- })
 
         local cmp = require('cmp')
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
