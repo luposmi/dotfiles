@@ -89,6 +89,7 @@ local gitsigns = {
             map('n', '<leader>hb', function() gitsigns.blame_line { full = true } end, { desc = "gitsigns blame full" })
             map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = "gitsigns current line blame" })
             map('n', '<leader>hd', gitsigns.diffthis, { desc = "gitsigns diff this" })
+            map('n', '<leader>ho', ':diffoff!<CR>', { desc = "gitsigns disable diff this" })
             map('n', '<leader>hD', function() gitsigns.diffthis('~') end, { desc = "gitsigns diff this" })
             map('n', '<leader>htd', gitsigns.toggle_deleted, { desc = "gitsigns toggle delete" })
 
