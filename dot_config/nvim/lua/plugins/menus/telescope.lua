@@ -22,6 +22,7 @@ return {
         vim.keymap.set('n', '<leader>pb', builtin.buffers, {desc = 'Telescope buffer'})
         vim.keymap.set('n', '<leader>ph', builtin.help_tags, {desc = 'Telescope help tags'})
         vim.keymap.set('n', '<leader>pt', builtin.treesitter, {desc = 'Telescope treesitter'})
+        vim.keymap.set('n', '<leader>pk', builtin.keymaps, {desc = 'Telescope keymaps'})
         vim.keymap.set('n', '<leader>pw', function()
             local word = vim.fn.expand("<cWORD>")
             builtin.grep_string({ search = word })
