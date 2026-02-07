@@ -4,6 +4,7 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
         vim.bo.filetype = "yaml"
     end,
 })
+vim.treesitter.language.register("bash", "zsh")
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
     pattern = "*.zshrc",
     callback = function()
@@ -25,12 +26,6 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
         vim.bo.filetype = vim.filetype.match({ filename= name_without_tmpl})
     end
 })
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-    pattern = "*.md",
-    callback = function ()
-        -- vim.cmd("colorscheme rose-pine")
-    end
-})
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "verilog", "systemverilog" },
   callback = function()
@@ -41,4 +36,12 @@ vim.api.nvim_create_autocmd("FileType", {
     })
   end,
 })
+-- for verilator
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = "*.core",
+    callback = function()
+        vim.bo.filetype = "yaml"
+    end,
+})
+
 

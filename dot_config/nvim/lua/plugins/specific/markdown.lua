@@ -1,18 +1,11 @@
 local renderer = {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {
         latex = { enabled = false },
         win_options = { conceallevel = { rendered = 2 } },
-        on = {
-            attach = function()
-                --                 require('nabla').enable_virt({ autogen = true })
-            end,
-        },
 
         quote = {
             highlight = 'RenderMarkdownBullet'
@@ -133,20 +126,15 @@ local obsidian = {
     "epwalsh/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
-    ft = "markdown",
-    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-    -- event = {
-    --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-    --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
-    --   -- refer to `:h file-pattern` for more examples
-    --   "BufReadPre path/to/my-vault/*.md",
-    --   "BufNewFile path/to/my-vault/*.md",
-    -- },
+    event = {
+       "BufReadPre " .. vim.fn.expand "~" .. "Documents/*.md",
+       "BufNewFile " .. vim.fn.expand "~" .. "Documents/*.md",
+    },
     dependencies = {
-        -- Required.
         "nvim-lua/plenary.nvim",
-
-        -- see below for full list of optional dependencies 👇
+        "nvim-telescope/telescope.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        "hrsh7th/nvim-cmp"
     },
     keys = {
         { "<leader>ot",  "<cmd>ObsidianTags<CR>",                 desc = "obsidian tags" },
@@ -182,12 +170,9 @@ local obsidian = {
                 folder = "9-templates",
                 substitutions = {}
             },
-
-            -- see below for full list of options 👇
         })
     end
 }
-
 local preview = {
     "jannis-baum/vivify.vim",
     config = function()

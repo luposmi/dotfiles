@@ -5,13 +5,6 @@ return {
         local gen_spec = ai.gen_spec
         ai.setup({
             custom_textobjects = {
-                -- Tweak argument to be recognized only inside `()` between `;`
-                -- a = gen_spec.argument({ brackets = { '%b()' }, separator = ';' }),
-
-                -- Tweak function call to not detect dot in function name
-                -- f = gen_spec.function_call({ name_pattern = '[%w_]' }),
-
-                -- Function definition (needs treesitter queries with these captures)
                 m = gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
                 f = gen_spec.treesitter({ a = '@call.outer', i = '@call.inner' }),
                 l = gen_spec.treesitter({ a = '@loop.outer', i = '@loop.inner' }),
@@ -29,7 +22,6 @@ return {
         require("mini.align").setup()
         require("mini.jump").setup(
             {
-                -- Module mappings. Use `''` (empty string) to disable one.
                 mappings = {
                     forward = 'f',
                     backward = 'F',
@@ -37,20 +29,10 @@ return {
                     backward_till = 'T',
                     repeat_jump = ';',
                 },
-
-                -- Delay values (in ms) for different functionalities. Set any of them to
-                -- a very big number (like 10^7) to virtually disable.
                 delay = {
-                    -- Delay between jump and highlighting all possible jumps
                     highlight = 250,
-
-                    -- Delay between jump and automatic stop if idle (no jump is done)
                     idle_stop = 10000000,
                 },
-
-                -- Whether to disable showing non-error feedback
-                -- This also affects (purely informational) helper messages shown after
-                -- idle time if user input is required.
                 silent = false,
             }
         )
