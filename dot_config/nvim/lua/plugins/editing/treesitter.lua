@@ -1,35 +1,33 @@
 local treesitter = {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPre", "BufNewFile" },
+    branch = "main",
+    lazy = false,
+    --event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
-    config = 
-        {
-            ensure_installed = { "asm", "bash", "c", "clojure", "cmake", "commonlisp", "cpp", "css",
-                "csv", "dart", "diff", "dockerfile", "gdscript",
-                "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore", "go",
-                "haskell", "html", "java", "javascript", "json", "latex", "llvm", "lua",
-                "nix", "ocaml",
-                "python", "rust", "sql",
-                "typescript", "xml", "yaml", "zig", "kdl", "just", "desktop", "comment", "disassembly", "devicetree",
-                "elixir", "editorconfig", "make", "meson", "latex", "kotlin", "linkerscript", "luadoc", "matlab", "ninja",
-                "objdump", "passwd", "perl", "php", "printf", "properties", "r", "scala", "scheme", "scss", "ssh_config",
-                "tablegen", "udev"
-            },
-            sync_install = false,
-            auto_install = true,
-            highlight = { enable = true },
-            indent = { enable = true },
-            autotag = { enable = true },
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "<C-space>",
-                    node_incremental = "<C-space>",
-                    scope_incremental = false,
-                    node_decremental = "<bs>",
-                }
-            }
+    config = function()
+        require('nvim-treesitter').setup()
+        local installed = { "asm", "bash", "c", "clojure", "cmake", "commonlisp", "cpp", "css",
+            "csv", "dart", "diff", "dockerfile", "gdscript",
+            "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore", "go",
+            "haskell", "html", "java", "javascript", "json", "latex", "llvm", "lua",
+            "nix", "ocaml",
+            "python", "rust", "sql",
+            "typescript", "xml", "yaml", "zig", "kdl", "just", "desktop", "comment", "disassembly", "devicetree",
+            "elixir", "editorconfig", "make", "meson", "latex", "kotlin", "linkerscript", "luadoc", "matlab", "ninja",
+            "objdump", "passwd", "perl", "php", "printf", "properties", "r", "scala", "scheme", "scss", "ssh_config",
+            "tablegen", "udev"
         }
+        require('nvim-treesitter').intsall(installed)
+        vim.api.nvim_create_autocmd('FileType', {
+            pattern = installed,
+            callback = function()
+                vim.treesitter.start()
+                vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+                vim.wo.foldmethod = 'expr'
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end
+        })
+    end
 }
 local context = {
     "nvim-treesitter/nvim-treesitter-context",
@@ -37,48 +35,15 @@ local context = {
 }
 local textobjects = {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
     event = { "BufReadPre", "BufNewFile" },
     lazy = true,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
-        require("nvim-treesitter").setup({
+        require("nvim-treesitter-textobjects").setup({
             textobjects = {
                 select = {
                     enable = false,
-
-                    -- Automatically jump forward to textobj, similar to targets.vim
-                    lookahead = true,
-
-                    keymaps = {
-                        -- You can use the capture groups defined in textobjects.scm
-                        ["a="] = { query = "@assignment.outer", desc = "outer assignment" },
-                        ["i="] = { query = "@assignment.inner", desc = "inner assignment" },
-                        ["l="] = { query = "@assignment.lhs", desc = "left assignment" },
-                        ["r="] = { query = "@assignment.rhs", desc = "right assignment" },
-
-                        -- works for javascript/typescript files (custom capture I created in after/queries/ecma/textobjects.scm)
-                        ["a:"] = { query = "@property.outer", desc = "outer object property" },
-                        ["i:"] = { query = "@property.inner", desc = "inner object property" },
-                        ["l:"] = { query = "@property.lhs", desc = "left object property" },
-                        ["r:"] = { query = "@property.rhs", desc = "right object property" },
-
-                        ["aa"] = { query = "@parameter.outer", desc = "outer parameter/argument" },
-                        ["ia"] = { query = "@parameter.inner", desc = "inner parameter/argument" },
-
-                        ["ai"] = { query = "@conditional.outer", desc = "outer conditional" },
-                        ["ii"] = { query = "@conditional.inner", desc = "inner conditional" },
-
-                        ["al"] = { query = "@loop.outer", desc = "outer loop" },
-                        ["il"] = { query = "@loop.inner", desc = "inner loop" },
-
-                        ["af"] = { query = "@call.outer", desc = "outer function call" },
-                        ["if"] = { query = "@call.inner", desc = "inner function call" },
-
-                        ["am"] = { query = "@function.outer", desc = "outer method/function definition" },
-                        ["im"] = { query = "@function.inner", desc = "inner method/function definition" },
-
-                        ["ac"] = { query = "@class.outer", desc = "outer class" },
-                        ["ic"] = { query = "@class.inner", desc = "inner class" },
                     },
                 },
                 swap = {
@@ -140,14 +105,13 @@ local textobjects = {
                         ["<leader>eF"] = "@class.outer",
                     },
                 },
-            },
         })
 
-        local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+        --local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
 
         -- vim way: ; goes to the direction you were moving.
-        vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
-        vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+        --vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+        --vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
     end,
 }
 
