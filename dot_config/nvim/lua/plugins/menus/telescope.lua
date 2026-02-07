@@ -16,16 +16,16 @@ return {
             }
         }
         local builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-        vim.keymap.set('n', '<leader>pg', builtin.git_files, {})
-        vim.keymap.set('n', '<leader>ps', builtin.live_grep, {})
-        vim.keymap.set('n', '<leader>pb', builtin.buffers, {})
-        vim.keymap.set('n', '<leader>ph', builtin.help_tags, {})
-        vim.keymap.set('n', '<leader>pt', builtin.treesitter, {})
+        vim.keymap.set('n', '<leader>pf', builtin.find_files, {desc = 'Telescope find files'})
+        vim.keymap.set('n', '<leader>pg', builtin.git_files, {desc = 'Telescope git files'})
+        vim.keymap.set('n', '<leader>ps', builtin.live_grep, {desc = 'Telescope live grep'})
+        vim.keymap.set('n', '<leader>pb', builtin.buffers, {desc = 'Telescope buffer'})
+        vim.keymap.set('n', '<leader>ph', builtin.help_tags, {desc = 'Telescope help tags'})
+        vim.keymap.set('n', '<leader>pt', builtin.treesitter, {desc = 'Telescope treesitter'})
         vim.keymap.set('n', '<leader>pw', function()
             local word = vim.fn.expand("<cWORD>")
             builtin.grep_string({ search = word })
-        end)
+        end, {desc = 'Telescope grep WORD under cursor'})
         vim.keymap.set('n', '<leader>vs',
             function() require('telescope.builtin').lsp_document_symbols({ symbols = { 'function', 'method' } }) end,
             { desc = "list all methods in file" })
