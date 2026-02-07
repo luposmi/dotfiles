@@ -17,7 +17,7 @@ local treesitter = {
             "objdump", "passwd", "perl", "php", "printf", "properties", "r", "scala", "scheme", "scss", "ssh_config",
             "tablegen", "udev"
         }
-        require('nvim-treesitter').intsall(installed)
+        require('nvim-treesitter').install(installed)
         vim.api.nvim_create_autocmd('FileType', {
             pattern = installed,
             callback = function()
