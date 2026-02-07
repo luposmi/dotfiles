@@ -1,10 +1,15 @@
 return {
     "echasnovski/mini.nvim",
+    dependencies = {"nvim-treesitter/nvim-treesitter-textobjects"},
     config = function()
         local ai = require("mini.ai")
         local gen_spec = ai.gen_spec
         ai.setup({
             custom_textobjects = {
+                S = gen_spec.treesitter({ a = '@statement.outer', i = '@statement.inner'}),
+                A = gen_spec.treesitter({ a = '@assignment.outer', i = '@assignment.inner'}),
+                a = gen_spec.treesitter({ a = '@parameter.outer', i = '@parameter.inner'}),
+                v = gen_spec.treesitter({ a = '@attribute.outer', i = '@attribute.inner'}),
                 m = gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
                 f = gen_spec.treesitter({ a = '@call.outer', i = '@call.inner' }),
                 l = gen_spec.treesitter({ a = '@loop.outer', i = '@loop.inner' }),
