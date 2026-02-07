@@ -1,0 +1,73 @@
+{
+  "alertOptions": {
+    "icons": {
+      "note": "info",
+      "tip": "lightbulb",
+      "definition": "book",
+      "important": "alert-circle",
+      "warning": "alert-triangle",
+      "caution": "alert-octagon",
+
+      "abstract": "file-text",
+      "summary": "file-text",
+      "tldr": "file-text",
+      "info": "info",
+      "todo": "check-circle",
+      "hint": "lightbulb",
+      "success": "check",
+      "check": "check",
+      "done": "check",
+
+      "question": "question",
+      "help": "help-circle",
+      "faq": "help-circle",
+      "attention": "alert-triangle",
+
+      "failure": "x",
+      "fail": "x",
+      "missing": "x",
+      "danger": "skull",
+      "error": "skull",
+      "bug": "bug",
+
+      "example": "list-unordered",
+      "quote": "quote",
+      "cite": "quote"
+    },
+    "titles": {
+      "note": "Note",
+      "tip": "Tip",
+      "definition": "Definition",
+      "important": "Important",
+      "warning": "Warning",
+      "caution": "Caution",
+
+      "abstract": "Abstract",
+      "summary": "Summary",
+      "tldr": "TL;DR",
+      "info": "Info",
+      "todo": "Todo",
+      "hint": "Hint",
+      "success": "Success",
+      "check": "Check",
+      "done": "Done",
+
+      "question": "Question",
+      "help": "Help",
+      "faq": "FAQ",
+      "attention": "Attention",
+
+      "failure": "Failure",
+      "fail": "Fail",
+      "missing": "Missing",
+      "danger": "Danger",
+      "error": "Error",
+      "bug": "Bug",
+
+      "example": "Example",
+      "quote": "Quote",
+      "cite": "Cite"
+    }
+  }
+}
+
