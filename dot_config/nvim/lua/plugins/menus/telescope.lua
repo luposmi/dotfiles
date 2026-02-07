@@ -29,6 +29,9 @@ return {
         vim.keymap.set('n', '<leader>vs',
             function() require('telescope.builtin').lsp_document_symbols({ symbols = { 'function', 'method' } }) end,
             { desc = "list all methods in file" })
+        -- LSP Keybindings
+        vim.keymap.set('n', '<leader>vo', builtin.lsp_outgoing_calls, {desc = 'Telescope LSP outgoing calls'})
+        vim.keymap.set('n', '<leader>vi', builtin.lsp_incoming_calls, {desc = 'Telescope LSP incoming calls'})
         require('telescope').load_extension('fzf')
     end
 }
