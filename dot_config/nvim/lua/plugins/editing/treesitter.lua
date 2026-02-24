@@ -13,7 +13,7 @@ local treesitter = {
             "nix", "ocaml",
             "python", "rust", "sql",
             "typescript", "xml", "yaml", "zig", "kdl", "just", "desktop", "comment", "disassembly", "devicetree",
-            "elixir", "editorconfig", "make", "meson", "latex", "kotlin", "linkerscript", "luadoc", "matlab", "ninja",
+            "elixir", "editorconfig", "make", "meson", "latex", "kotlin", "linkerscript", "luadoc", "matlab","markdown","markdown_inline", "ninja",
             "objdump", "passwd", "perl", "php", "printf", "properties", "r", "scala", "scheme", "scss", "ssh_config",
             "tablegen", "udev"
         }
