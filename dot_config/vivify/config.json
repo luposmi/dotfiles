@@ -1,4 +1,6 @@
 {
+  "styles": "~/.config/vivify/style.css",
+  
   "alertOptions": {
     "icons": {
       "note": "info",
