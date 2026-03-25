@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
 })
 vim.treesitter.language.register("bash", "zsh")
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-    pattern = "*.zshrc",
+    pattern = "*zshrc",
     callback = function()
         vim.bo.filetype = "zsh"
     end,
