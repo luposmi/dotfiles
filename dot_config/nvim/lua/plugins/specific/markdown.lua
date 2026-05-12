@@ -127,8 +127,8 @@ local obsidian = {
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
     event = {
-       "BufReadPre " .. vim.fn.expand "~" .. "Documents/*.md",
-       "BufNewFile " .. vim.fn.expand "~" .. "Documents/*.md",
+       "BufReadPre " .. vim.fn.expand "~" .. "/Documents/**/*.md",
+       "BufNewFile " .. vim.fn.expand "~" .. "/Documents/**/*.md",
     },
     dependencies = {
         "nvim-lua/plenary.nvim",
