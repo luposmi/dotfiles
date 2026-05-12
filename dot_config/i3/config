@@ -19,9 +19,8 @@ bindsym $mod+p exec --no-startup-id touchpad_toggle
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -d $(brightnessctl -l | grep backlight | awk '{print $2}' | tr -d "\'") set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl -d $(brightnessctl -l | grep backlight | awk '{print $2}' | tr -d "\'") set 5%-
 
-bindsym XF86MonBrightnessUp+Shift exec --no-startup-id brightnessctl -d $(brightnessctl -l | grep backlight | awk '{print $2}' | tr -d "\'") set +1%
-bindsym XF86MonBrightnessDown+Shift exec --no-startup-id brightnessctl -d $(brightnessctl -l | grep backlight | awk '{print $2}' | tr -d "\'") set 1%-
-
+bindsym XF86MonBrightnessUp+Shift exec --no-startup-id brightnessctl set 10%
+bindsym XF86MonBrightnessDown+Shift exec --no-startup-id brightnessctl set 10%-
 #bindsym XF86KbdBrightnessUp exec --no-startup-id brightnessctl -d amdgpu_bl0 set +5%
 #bindsym XF86KbdBrightnessDown exec --no-startup-id brightnessctl -d amdgpu_bl0 set 5%-
 # Use pactl to adjust volume in PulseAudio.
