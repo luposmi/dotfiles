@@ -49,8 +49,8 @@ keybinds clear-defaults=true {
         bind "]" { BreakPaneRight; SwitchToMode "locked"; }
         bind "b" { BreakPane; SwitchToMode "locked"; }
         bind "h" { GoToPreviousTab; }
-        bind "j" { GoToNextTab; }
-        bind "k" { GoToPreviousTab; }
+        bind "j" { MoveTab "Left"; }
+        bind "k" { MoveTab "Right"; }
         bind "l" { GoToNextTab; }
         bind "n" { NewTab; }
         bind "N" { NewTab; SwitchToMode "locked"; }
