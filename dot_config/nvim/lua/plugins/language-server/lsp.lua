@@ -45,7 +45,7 @@ return {
 
         require('mason').setup({})
         require('mason-lspconfig').setup({
-            ensure_installed = { "bashls", "clangd", "lua_ls", "rust_analyzer", "zls", "verible" },
+            ensure_installed = { "bashls", "clangd", "lua_ls",  "zls", "verible" },
             handlers = {
                 -- Default handler for installed servers
                 function(server_name)
