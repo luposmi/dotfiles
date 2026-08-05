@@ -103,6 +103,9 @@ invert = false
 #   "^innocuous-cmd .*--secret=.+",
 # ]
 
+ history_filter = [
+   "(?x)poweroff",
+ ]
 ## prevent commands run with cwd matching any of these regexes from being written
 ## to history. Note that these regular expressions are unanchored, i.e. if they don't
 ## start with ^ or end with $, they'll match anywhere in CWD.
@@ -188,11 +191,12 @@ enter_accept = true
 # common_prefix = ["sudo"]
 
 ## Set commands that will be completely ignored from stats
-# ignored_commands = [
-#   "cd",
-#   "ls",
-#   "vi"
-# ]
+ ignored_commands = [
+   "v",
+   "ls",
+   "nvim",
+   "poweroff",
+ ]
 
 [keys]
 # Defaults to true. If disabled, using the up/down key won't exit the TUI when scrolled past the first/last entry.
