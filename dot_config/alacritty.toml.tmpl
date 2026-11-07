@@ -9,7 +9,11 @@ opacity = 1
 #normal = { family = "Iosevka Term medium"}
 normal = { family = "IosevkaTerm NF Medium" }
 # arch pkg: ttf-iosevkaterm-nerd
+{{- if eq .chezmoi.hostname "bogo-laptop" }}
+size = 16
+{{- else }}
 size = 12
+{{- end }}
 
 [cursor]
 style.shape = "Block"
