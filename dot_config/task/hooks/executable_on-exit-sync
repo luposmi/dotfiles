@@ -1,0 +1,8 @@
+#!/bin/sh
+# Drain hook input; task changes have already been processed at on-exit.
+cat >/dev/null
+# systemd coalesces concurrent requests; periodic sync remains a fallback.
+if ! systemctl --user start --no-block taskwarrior-sync.service >/dev/null 2>&1; then
+    echo 'Could not schedule automatic sync; run task sync manually.'
+fi
+exit 0

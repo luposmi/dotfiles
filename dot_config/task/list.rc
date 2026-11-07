@@ -1,0 +1,7 @@
+# Compact list report: leave more room for descriptions and annotations.
+report.list.columns=id,priority,project,tags,due.relative,description.count,urgency
+report.list.labels=ID,P,Project,Tags,Due,Task,Urgency
+report.list.sort=urgency-,due+,project+
+row.padding=1
+column.padding=2
+fontunderline=on

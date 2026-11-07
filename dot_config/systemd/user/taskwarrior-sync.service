@@ -3,6 +3,6 @@ Description=Synchronize Taskwarrior tasks
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/task sync
+ExecStart=/usr/bin/task rc.hooks=off sync
 TimeoutStartSec=120
 UMask=0077
