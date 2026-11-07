@@ -1,0 +1,4 @@
+data.location={{ .chezmoi.homeDir }}/.local/share/task
+sync.server.url=https://tasks.luposmi.com:11000
+include {{ .chezmoi.homeDir }}/.config/task/sync-secrets.rc
+recurrence={{ if (eq .chezmoi.hostname "bogo-laptop") }}on{{ else }}off{{ end }}
