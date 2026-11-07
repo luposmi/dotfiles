@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+"""Set up the shared Atuin account while retaining original local data."""
+import datetime
+import fcntl
+import json
+import os
+from pathlib import Path
+import shutil
+import sqlite3
+import subprocess
+import sys
+import uuid
+
+
+def atuin(*args):
+    result = subprocess.run(['atuin', *args], capture_output=True, text=True)
+    if result.returncode or (args == ('store', 'verify') and 'failed to verify' in (result.stdout + result.stderr).lower()):
+        raise RuntimeError('Atuin operation failed (' + ' '.join(args[:2]) + '); credentials and history were not printed')
+    return result.stdout
+
+
+def setup():
+    os.umask(0o077)
+    os.environ.setdefault("ATUIN_SESSION", uuid.uuid4().hex)
+    home = Path.home()
+    credentials = json.loads((home / '.config/atuin/shared-sync.json').read_text())
+    data = home / '.local/share/atuin-shared'
+    original = home / '.local/share/atuin'
+    data.mkdir(parents=True, exist_ok=True, mode=0o700)
+    data.chmod(0o700)
+    with (data / 'setup.lock').open('w') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        key = data / 'key'
+        if key.exists() and key.read_text().strip() != credentials['key'].strip():
+            raise RuntimeError('A different key already exists in atuin-shared; refusing to overwrite')
+        key.write_text(credentials['key'])
+        key.chmod(0o600)
+        # Initializes the new metadata schema and generates a device-specific host ID.
+        info = atuin('info')
+        if str(data / 'meta.db') not in info:
+            raise RuntimeError('Apply the shared Atuin config before running setup')
+        db = sqlite3.connect(data / 'meta.db', timeout=30)
+        existing = dict(db.execute("SELECT key,value FROM meta WHERE key IN ('session','hub_session')"))
+        if any(credentials['sessions'].get(k) != v for k,v in existing.items()):
+            raise RuntimeError('Another account already uses atuin-shared; refusing to switch')
+        with db:
+            for name, token in credentials['sessions'].items():
+                if name not in ('session', 'hub_session'):
+                    raise RuntimeError('Unsupported credential type')
+                db.execute("INSERT INTO meta(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value, updated_at=strftime('%s','now')", (name,token))
+        db.close()
+        (data / 'meta.db').chmod(0o600)
+        marker = data / 'history-imported'
+        if not marker.exists():
+            backup = data / ('before-import-' + datetime.datetime.now().strftime('%Y%m%dT%H%M%S%f'))
+            backup.mkdir(mode=0o700)
+            if original.exists():
+                for path in original.glob('*.db'):
+                    src = sqlite3.connect('file:' + str(path) + '?mode=ro', uri=True, timeout=30)
+                    dst = sqlite3.connect(backup / path.name)
+                    src.backup(dst)
+                    dst.close()
+                    src.close()
+                for name in ('key', 'session', 'host_id'):
+                    if (original / name).exists():
+                        shutil.copy2(original / name, backup / name)
+            # Atuin creates its history schema. Merge local rows; never copy host metadata
+            # or the old encrypted store with its missing key.
+            atuin('history', 'list', '--format', '{uuid}')
+            if (backup / 'history.db').exists():
+                history = sqlite3.connect(data / 'history.db', timeout=30)
+                history.execute('ATTACH DATABASE ? AS previous', (str(backup / 'history.db'),))
+                columns = [row[1] for row in history.execute('PRAGMA main.table_info(history)')]
+                oldcolumns = [row[1] for row in history.execute('PRAGMA previous.table_info(history)')]
+                if columns != oldcolumns or not columns:
+                    raise RuntimeError('History schema mismatch; original data and backup remain intact')
+                names = ','.join('"' + name.replace('"','""') + '"' for name in columns)
+                with history:
+                    history.execute('INSERT OR IGNORE INTO main.history (' + names + ') SELECT ' + names + ' FROM previous.history')
+                history.close()
+            atuin('history', 'init-store')
+            atuin('store', 'verify')
+            marker.write_text('Original data retained at ' + str(original) + '\nBackup: ' + str(backup) + '\n')
+            print('Original Atuin history preserved; backup:', backup)
+        try:
+            atuin('sync')
+        except RuntimeError:
+            print('Shared Atuin account configured; sync failed and will retry automatically.', file=sys.stderr)
+            return
+        print('Shared Atuin account synchronized successfully.')
+
+
+if __name__ == '__main__':
+    try:
+        setup()
+    except Exception as error:
+        print('Shared Atuin setup stopped: ' + (str(error) if isinstance(error, RuntimeError) else type(error).__name__), file=sys.stderr)
+        sys.exit(1)

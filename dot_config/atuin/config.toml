@@ -1,3 +1,8 @@
+# Use a separate local store for the shared account; retain the original account.
+data_dir = "~/.local/share/atuin-shared"
+db_path = "~/.local/share/atuin-shared/history.db"
+key_path = "~/.local/share/atuin-shared/key"
+record_store_path = "~/.local/share/atuin-shared/records.db"
 ## where to store your database, default is your system data directory
 ## linux/mac: ~/.local/share/atuin/history.db
 ## windows: %USERPROFILE%/.local/share/atuin/history.db
@@ -23,18 +28,18 @@
 # timezone = "local"
 
 ## enable or disable automatic sync
-# auto_sync = true
+auto_sync = true
 
 ## enable or disable automatic update checks
 # update_check = true
 
 ## address of the sync server
-# sync_address = "https://api.atuin.sh"
+sync_address = "https://api.atuin.sh"
 
 ## how often to sync history. note that this is only triggered when a command
 ## is ran, so sync intervals may well be longer
 ## set it to 0 to sync after every command
-# sync_frequency = "10m"
+sync_frequency = "5m"
 
 ## which search mode to use
 ## possible values: prefix, fulltext, fuzzy, skim
@@ -42,7 +47,7 @@
 
 ## which filter mode to use
 ## possible values: global, host, session, directory
-# filter_mode = "global"
+filter_mode = "global"
 
 ## With workspace filtering enabled, Atuin will filter for commands executed
 ## in any directory within a git repository tree (default: false)
@@ -51,7 +56,7 @@
 ## which filter mode to use when atuin is invoked from a shell up-key binding
 ## the accepted values are identical to those of "filter_mode"
 ## leave unspecified to use same mode set in "filter_mode"
-# filter_mode_shell_up_key_binding = "global"
+filter_mode_shell_up_key_binding = "global"
 
 ## which search mode to use when atuin is invoked from a shell up-key binding
 ## the accepted values are identical to those of "search_mode"
@@ -234,3 +239,12 @@ records = true
 
 ## The port that should be used for TCP on non unix systems
 # tcp_port = 8889
+
+[meta]
+db_path = "~/.local/share/atuin-shared/meta.db"
+
+[kv]
+db_path = "~/.local/share/atuin-shared/kv.db"
+
+[scripts]
+db_path = "~/.local/share/atuin-shared/scripts.db"

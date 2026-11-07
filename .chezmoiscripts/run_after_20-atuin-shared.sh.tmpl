@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+if command -v atuin >/dev/null 2>&1; then
+    {{ .chezmoi.homeDir | quote }}/.config/scripts/setup-atuin-shared
+fi
