@@ -1,0 +1,9 @@
+# Compact TUI report; keep Taskwarrior's default colors.
+report.next.columns=id,priority,project,tags,due.relative,description.truncated_count,urgency
+report.next.labels=ID,P,Project,Tags,Due,Task,Urgency
+report.next.sort=urgency-,due+,project+
+uda.taskwarrior-tui.selection.indicator=›
+uda.taskwarrior-tui.mark.indicator=✓
+uda.taskwarrior-tui.task-report.info-location=auto
+uda.taskwarrior-tui.task-report.info-show=true
+uda.taskwarrior-tui.task-report.use-alternate-style=false

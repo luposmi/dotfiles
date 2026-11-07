@@ -3,5 +3,5 @@ sync.server.url=https://tasks.luposmi.com:11000
 include {{ .chezmoi.homeDir }}/.config/task/sync-secrets.rc
 recurrence={{ if (eq .chezmoi.hostname "bogo-laptop") }}on{{ else }}off{{ end }}
 hooks.location={{ .chezmoi.homeDir }}/.config/task/hooks
-include {{ .chezmoi.homeDir }}/.config/task/alacritty.theme
 include {{ .chezmoi.homeDir }}/.config/task/list.rc
+include {{ .chezmoi.homeDir }}/.config/task/tui.rc
