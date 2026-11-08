@@ -39,3 +39,16 @@ vim.keymap.set("n", "<C-S-j>", "<C-w>j", { desc = "go down one window" })
 vim.keymap.set("n", "<C-S-k>", "<C-w>k", { desc = "go up one window" })
 vim.keymap.set("n", "<C-S-l>", "<C-w>l", { desc = "go right one window" })
 vim.keymap.set("n", "<C-S-q>", "<C-w>q", { desc = "close window" })
+
+-- Reflow the selection or current paragraph to 120 columns.
+vim.keymap.set({ "n", "x" }, "<leader>af", function()
+    local textwidth = vim.bo.textwidth
+    vim.bo.textwidth = 120
+    -- gw uses Neovim's paragraph formatter, independent of LSP/external formatters.
+    local command = vim.fn.mode() == "n" and "normal! gwip" or "normal! gw"
+    local ok, err = pcall(vim.cmd, command)
+    vim.bo.textwidth = textwidth
+    if not ok then
+        vim.notify(tostring(err), vim.log.levels.ERROR)
+    end
+end, { desc = "Reflow selection or paragraph to 120 columns" })
