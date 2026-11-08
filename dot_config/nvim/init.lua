@@ -4,3 +4,5 @@ require("filetypes")
 require("lazy-init")
 require("clipboard")
 require("theme")
+
+require("codex-zellij")
