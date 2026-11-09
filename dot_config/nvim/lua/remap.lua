@@ -1,5 +1,30 @@
 vim.g.mapleader = " "
 
+-- Open the same task composer used by the shell command t.
+vim.keymap.set("n", "<leader>ta", function()
+    local command = vim.fn.expand("~/.config/scripts/t")
+    if vim.fn.executable(command) ~= 1 then
+        vim.notify("Task composer is missing: " .. command, vim.log.levels.ERROR)
+        return
+    end
+    vim.cmd("botright 16new")
+    local buffer = vim.api.nvim_get_current_buf()
+    vim.bo[buffer].bufhidden = "wipe"
+    vim.fn.jobstart({ command, "a" }, {
+        term = true,
+        on_exit = function(_, code)
+            if code == 0 then
+                vim.schedule(function()
+                    if vim.api.nvim_buf_is_valid(buffer) then
+                        vim.api.nvim_buf_delete(buffer, { force = true })
+                    end
+                end)
+            end
+        end,
+    })
+    vim.cmd("startinsert")
+end, { desc = "Add Taskwarrior task" })
+
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "moves the current line up" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "moves the current line down" })
 

@@ -1,0 +1,298 @@
+#!/usr/bin/env python3
+"""Quick Taskwarrior entry: t ad2wpM Buy groceries."""
+
+import argparse
+import curses
+import re
+import shutil
+import subprocess
+import sys
+import textwrap
+from dataclasses import dataclass, field
+
+
+FIELDS = {
+    'D': ('depends', 'Other tasks this task depends upon'),
+    'd': ('due', 'Due date'),
+    'e': ('end', 'Date task was completed/deleted'),
+    'E': ('entry', 'Date task was created'),
+    'l': ('limit', 'Number of report rows (or page; reports only)'),
+    'p': ('priority', 'Priority: H / M / L / N (none)'),
+    'P': ('project', 'Project: h home / s server / u uni; custom {name}'),
+    'r': ('recur', 'Recurrence frequency'),
+    's': ('scheduled', 'Date task is scheduled to start'),
+    'S': ('start', 'Date task was started'),
+    'c': ('status', 'Status: pending / completed / deleted / waiting / recurring'),
+    'u': ('until', 'Expiration date'),
+    'w': ('wait', 'Date until task becomes pending'),
+    't': ('tags', 'Space-separated tags'),
+}
+DATE_FIELDS = {'due', 'end', 'entry', 'scheduled', 'start', 'until', 'wait'}
+PROJECT_SHORTCUTS = {'h': 'home', 's': 'server', 'u': 'uni'}
+ATTRIBUTES = [name for name, _ in FIELDS.values() if name not in ('limit', 'tags')]
+
+
+@dataclass
+class Draft:
+    action: str = 'add'
+    depends: str = ''
+    due: str = ''
+    end: str = ''
+    entry: str = ''
+    limit: str = ''
+    priority: str = ''
+    project: str = ''
+    recur: str = ''
+    scheduled: str = ''
+    start: str = ''
+    status: str = ''
+    until: str = ''
+    wait: str = ''
+    tags: list[str] = field(default_factory=list)
+    description: str = ''
+
+    def command(self):
+        if self.action == 'add' and self.limit:
+            raise ValueError('limit controls report rows; use t vl10 to view ten tasks')
+        args = ['task', self.action]
+        for name in ATTRIBUTES + ['limit']:
+            value = getattr(self, name)
+            if value:
+                args.append(f'{name}:{value}')
+        args.extend('+' + tag for tag in self.tags)
+        # Keep description text (including +tags and attribute-like words) literal.
+        return args + ['--', self.description] if self.action == 'add' else args
+
+
+def set_value(draft, name, value):
+    value = value.strip()
+    if name in DATE_FIELDS and re.fullmatch(r'[hdwmy]', value):
+        value = '1' + value
+    if name == 'priority':
+        value = value.upper()
+        if value and value not in ('H', 'M', 'L', 'N'):
+            raise ValueError('Priority must be H, M, L, or N (none).')
+        value = '' if value == 'N' else value
+    if name == 'limit':
+        if draft.action == 'add':
+            raise ValueError('limit is for reports. Use v from the start screen, or t vl10.')
+        if value and value != 'page' and not re.fullmatch(r'[1-9][0-9]*', value):
+            raise ValueError('Limit must be a positive number or page.')
+    if name == 'status' and value and value not in ('pending', 'completed', 'deleted', 'waiting', 'recurring'):
+        raise ValueError('Status must be pending, completed, deleted, waiting, or recurring.')
+    if name == 'tags':
+        draft.tags = list(dict.fromkeys(tag.lstrip('+') for tag in value.split() if tag.lstrip('+')))
+    else:
+        setattr(draft, name, value)
+
+
+def parse_shortcuts(value):
+    """Parse compact values, or key{value} for arbitrary text and dates."""
+    if not value or value[0] not in ('a', 'v'):
+        raise ValueError('Start with a (add) or v (view), for example: t ad2wpM Buy groceries')
+    draft = Draft(action='add' if value[0] == 'a' else 'next')
+    rest = value[1:]
+    while rest:
+        key = rest[0]
+        if key not in FIELDS:
+            raise ValueError(f'Unknown shortcut near {rest!r}; see t --help')
+        name = FIELDS[key][0]
+        pattern = r'\{([^{}]*)\}'
+        if not rest[1:].startswith('{'):
+            if name in DATE_FIELDS:
+                pattern = r'((?:[1-9][0-9]*)?[hdwmy])'
+            elif name == 'priority':
+                pattern = r'([HMLN])'
+            elif name == 'project':
+                pattern = r'([hsu])'
+            elif name == 'depends':
+                pattern = r'([0-9]+(?:-[0-9]+)?(?:,[0-9]+(?:-[0-9]+)?)*)'
+            elif name == 'limit':
+                pattern = r'(page|[1-9][0-9]*)'
+        match = re.match(pattern, rest[1:])
+        if not match:
+            raise ValueError(f'Invalid value near {rest!r}; use {key}{{value}} (quote the shortcut in your shell)')
+        parsed = match[1]
+        if name == 'project' and not rest[1:].startswith('{'):
+            parsed = PROJECT_SHORTCUTS[parsed]
+        set_value(draft, name, parsed)
+        rest = rest[1 + match.end():]
+    return draft
+
+
+def compose(screen, draft, adding):
+    """Single-key options; Space switches to description entry."""
+    screen.keypad(True)
+    mode = 'options' if adding else 'home'
+    value = ''
+    message = ''
+
+    def put(row, text):
+        height, width = screen.getmaxyx()
+        if row < height and width > 1:
+            try:
+                screen.addnstr(row, 0, text, width - 1)
+            except curses.error:
+                pass
+
+    while True:
+        screen.erase()
+        put(0, 't · Taskwarrior · ' + ('add' if draft.action == 'add' else 'view'))
+        summary = '   '.join(f'{name}: {getattr(draft, name)}' for name in ATTRIBUTES + ['limit'] if getattr(draft, name))
+        if draft.tags:
+            summary += '   tags: ' + ' '.join(draft.tags)
+        width = max(1, screen.getmaxyx()[1] - 1)
+        for row, line in enumerate(textwrap.wrap(summary or 'No options selected.', width), 1):
+            if row > 3:
+                put(3, '… (more options selected)')
+                break
+            put(row, line)
+        if mode == 'home':
+            put(5, 'a add task    v view tasks    q quit')
+        else:
+            put(5, 'D depends   d due       e end       E entry')
+            put(6, 'l limit     p priority  P project   r recur')
+            put(7, 's scheduled S start     c status    u until')
+            put(8, 'w wait      t tags      Esc back/cancel   Ctrl-C cancel')
+            if mode == 'options':
+                put(10, 'Space: description, then Enter saves' if draft.action == 'add' else 'Enter: show report')
+                put(11, 'Example: d2wpM Buy groceries<Enter>' if draft.action == 'add' else 'Example: l10<Enter><Enter>')
+            elif mode == 'priority':
+                put(10, 'Priority: H high / M medium / L low / N none')
+            else:
+                labels = {name: label + ' (Enter accepts; empty clears)' for name, label in FIELDS.values()}
+                labels['description'] = 'Description (Enter saves)'
+                # Show the tail of long input so the insertion point stays visible.
+                width = max(1, screen.getmaxyx()[1] - 3)
+                put(10, labels[mode])
+                put(11, '> ' + value[-width:])
+        put(13, message)
+        screen.refresh()
+        key = screen.get_wch()
+        if key == curses.KEY_RESIZE:
+            continue
+        message = ''
+        if key == '\x03':
+            return None
+        if key == '\x1b':
+            if mode in ('home', 'options'):
+                return None
+            mode, value = 'options', ''
+            continue
+        if mode == 'home':
+            if key == 'q':
+                return None
+            if key in ('a', 'v'):
+                draft.action = 'add' if key == 'a' else 'next'
+                mode = 'options'
+        elif mode == 'options':
+            if draft.action != 'add' and key in (' ', '\n', '\r', curses.KEY_ENTER):
+                return draft
+            modes = {key: name for key, (name, _) in FIELDS.items()}
+            modes.update({' ': 'description', '\n': 'description', '\r': 'description'})
+            if key in modes:
+                mode, value = modes[key], ''
+        elif mode == 'priority':
+            if isinstance(key, str) and key.upper() in ('H', 'M', 'L', 'N'):
+                draft.priority = '' if key.upper() == 'N' else key.upper()
+                mode = 'options'
+        elif key in ('\n', '\r', curses.KEY_ENTER):
+            if mode == 'description':
+                if value.strip():
+                    draft.description = value.strip()
+                    return draft
+                message = 'Enter a description before saving.'
+            else:
+                try:
+                    if (mode == 'project' or mode in DATE_FIELDS) and value.startswith('{'):
+                        if not value.endswith('}'):
+                            raise ValueError('Close the custom value with }.')
+                        value = value[1:-1]
+                    set_value(draft, mode, value)
+                except ValueError as error:
+                    message = str(error)
+                else:
+                    mode, value = 'options', ''
+        elif key in ('\x7f', '\b', curses.KEY_BACKSPACE):
+            value = value[:-1]
+        elif key == '\x15':
+            value = ''
+        elif isinstance(key, str) and key.isprintable():
+            if mode == 'project' and not value and key in PROJECT_SHORTCUTS:
+                draft.project = PROJECT_SHORTCUTS[key]
+                mode = 'options'
+                continue
+            value += key
+            # Complete durations immediately; an omitted count means one.
+            if mode in DATE_FIELDS and re.fullmatch(r'(?:[1-9][0-9]*)?[hdwmy]', value):
+                set_value(draft, mode, value)
+                mode, value = 'options', ''
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog='''Examples:
+  t a Call Sam
+  t ad2wpM Buy groceries
+  t apHd1d Submit report
+  t aPhd2wpM Buy groceries
+  t addpMPh Buy groceries   Same as ad1dpMPh
+  t 'ad2wpMP{Work}D{12,15}r{weekly}' Review report
+  t 'as{tomorrow}w{tomorrow}c{pending}' Follow up
+  t vl10                   View ten tasks
+  t a                      Open the composer directly
+
+Interactive keys:
+  a       Add task (on the start screen)
+  v       View tasks (on the start screen); Enter shows report
+''' + '\n'.join(f'  {key:<7} {name}: {label}' for key, (name, label) in FIELDS.items()) + '''
+  Space   Start description; Enter saves
+  Esc     Back from a field, or cancel from options
+  Ctrl-C  Cancel
+  Ctrl-U  Clear the current input
+
+Shortcut durations: h hours, d days, w weeks, m months, y years.
+All date keys accept compact durations; priorities accept pH/pM/pL/pN.
+Omit the duration number for one: dd = d1d, dw = d1w, sw = s1w.
+Projects: Ph = home, Ps = server, Pu = uni; these advance immediately.
+In the composer, use {name} then Enter for custom projects starting h/s/u.
+Use {date} then Enter for named dates starting h/d/w/m/y (e.g. {yesterday}).
+Dependencies accept D12,15 or D12-15; limits accept l10 or lpage.
+Any key accepts {value}, e.g. P{Work}, r{weekly}, d{2026-12-01}.
+Quote shortcuts containing braces. In the composer, Enter accepts text
+fields; numeric date durations and single-key priorities advance immediately.
+Taskwarrior validates attribute combinations (e.g. recurrence requires due).
+Quote shell metacharacters in descriptions as with any shell command.''')
+    parser.add_argument('shortcuts', nargs='?', help='a add / v view, followed by option keys (see below)')
+    parser.add_argument('description', nargs=argparse.REMAINDER, help='task description, directly after shortcuts')
+    args = parser.parse_args()
+    try:
+        draft = parse_shortcuts(args.shortcuts) if args.shortcuts else Draft()
+    except ValueError as error:
+        parser.error(str(error))
+    if not shutil.which('task'):
+        parser.exit(1, 'Taskwarrior (task) is required.\n')
+    draft.description = ' '.join(args.description).strip()
+    if draft.action != 'add' and draft.description:
+        parser.error('View takes options in the shortcut, e.g. t vl10P{Work}, with no description.')
+    if not args.shortcuts or (draft.action == 'add' and not draft.description):
+        if not sys.stdin.isatty() or not sys.stdout.isatty():
+            parser.error('Provide a description, or run t in a terminal for interactive entry.')
+        try:
+            draft = curses.wrapper(compose, draft, bool(args.shortcuts))
+        except KeyboardInterrupt:
+            return 130
+        except curses.error as error:
+            parser.exit(1, f'Cannot open terminal interface: {error}\n')
+        if draft is None:
+            return 0
+    result = subprocess.run(draft.command())
+    if result.returncode:
+        import shlex
+        print('Taskwarrior failed. Command: ' + shlex.join(draft.command()), file=sys.stderr)
+    return result.returncode
+
+
+if __name__ == '__main__':
+    sys.exit(main())
